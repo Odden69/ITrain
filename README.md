@@ -1,108 +1,159 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+<h1 align="center">ITrain</h1>
 
-Welcome USER_NAME,
+Background image
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+This is a web based app made to give the user a simple but effective tool to plan and track their gym workouts.
+It is flexible in the sense that the user can add all the exercises and workouts they want and don't need to use an app crowded with extra 
+features that they will never use. 
+....
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+[View the live project here](https://hj-itrain.herokuapp.com/).  
+![Responsiveness image](documentation/wireframes/responsivness.png)
 
-## Gitpod Reminders
+## Table of Contents
+**[User Experience](#user-experience)**  
+**[Planning the Project](#planning-the-project)**  
+**[Features](#features)**  
+**[Technologies Used](#technologies-used)**  
+**[The Code](#the-code)**  
+**[Testing](#testing)**  
+**[Deployment](#deployment)**  
+**[Credits](#credits)**  
+**[Conclusion](#conclusion )** 
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## User Experience
+### Target Audience
+The target audience for Itrain is people of all ages who regularly workout at a gym and who like to take control over their own training by planning their workouts.
+The app gives the user the opportunity to create and edit exercises and put them together into workouts.
+There are default exercises provided by an admin user, but apart from that all exercises and workouts are private and not shared between users.
 
-`python3 -m http.server`
+The focus of this app is usability, both on a computer and on a mobile since it is important to be able to use the app at the gym and, for convenience, do the planning on a computer. Hence a fully responsive site is required.
 
-A blue button should appear to click: _Make Public_,
+### User Stories
+#### Non Authorized Users
+- As a non authorized user I am redirected to an informative page so that I immediately understand what the site is all about.
+- As a non authorized user I get the opportunity to either sign up or log in so that I can use the features of the site.
 
-Another blue button should appear to click: _Open Browser_.
+#### Authorized Users
+##### General
+- As an authorized user I can easily navigate the site so that I feel comfortable with it and am likely to come back.
+- *As an authorized user I can use a help tool so that I can understand how the app works.
+- As an authorized user I can hover over a user symbol so that I can see the username of current logged in user.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+##### Settings
+* Exercises
+    - As an authorized user I can create new exercises so that I can put them together in workouts.
+    - As an authorized user I can edit an existing exercise.
+    - *As an authorized user I can change the status of an existing exercise to inactive.
+    - *As an authorized user I have access to a library of default exercises so that I don’t have to create them all.
+    - As an authorized user I can tag an exercise so that I can filter exercises later.
+* Tags and Muscle groups
+    - As an authorized user I can create new tags so that I reuse them in exercises and workouts later.
+    - As an authorized user I can create new muscle groups so that I reuse them in exercises later.
 
-A blue button should appear to click: _Make Public_,
+##### Workouts
+- As an authorized user I can create new workouts and populate them with exercises so that I can reuse them in sessions.
+- *As an authorized user I can use filters to easily find an exercise when I populate a workout.
+- *As an authorized user I can tag a workout so that I can filter workouts later.
+- *As an authorized user I can edit a workout so that I can update an existing workout.
+- *As an authorized user I can change the status of an existing workout to inactive.
 
-Another blue button should appear to click: _Open Browser_.
+##### Sessions
+- As an authorized user I can add a new session on today's date from the landing page so that I can easily use the app in the gym.
+- As an authorized user I can add a new session on a future date so that I can plan my training.
+- As an authorized user I can choose to populate a session with predefined workouts so that I can reuse the collection of workouts I have made.
+- As an authorized user I can choose to populate a session with predefined exercises so that I can reuse the collection of exercises I have made.
+- *As an authorized user I can use filters to easily find an exercise when I populate a session.
+- *As an authorized user I can use filters to easily find a workout when I populate a session.
+- **As an authorized user I can turn on notifications so that I get a reminder on the days when I have planned a session.
+- As an authorized user I can find old sessions so that I can look back on my training history.
+- **As an authorized user I can copy an old session to create a new one so that I can easily create a new session similar to an old one.
+- As an authorized user I can edit an existing session.
+- As an authorized user I can delete my sessions so that they are entirely gone from the database.
+- As an authorized user I find a link to my next planned session on the landing page so that I can easily access it in the gym.
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+#### Authorized Users
+- As an admin user I can make a library of categories, exercises and workouts so that all authorized users can access them.
+- As an admin user I can create new units so that all users reuse them in exercises and workouts.
+- As an admin user I can reset a user's password so that a user who lost their password still can access their saved data.
 
-To log into the Heroku toolbelt CLI:
+## Planning the Project
+The planning of this project is done in Github Projects and follows an Agile strategy.
+[Link to the project's Kanban Board](https://github.com/Odden69/ITrain/projects/1)
+### Wireframes
+The focus for this application is first and foremost on usability on a mobile devise, therefore all the wireframes are made for a mobile device and a large screen wireframe is added just to show the principal for larger screens.
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+<details>
+  <summary>Click to see the wireframes</summary>
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+Wireframes for Unauthorized Users  
+![Unauthorized User](documentation/wireframes/unauthorized_user.png)  
 
-------
+Wireframe for the Landing Page of Authorized Users  
+![Authorized User](documentation/wireframes/authorized_user.png)  
 
-## Release History
+Wireframes for Sessions Pages  
+![Sessions Pages](documentation/wireframes/sessions.png)  
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+Wireframes for the Workouts Pages  
+![Workouts Pages](documentation/wireframes/workouts.png)  
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+Wireframes for Exercises Pages  
+![Exercises Pages](documentation/wireframes/exercises.png)  
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+Wireframes for Muscle Groups and Tags Pages  
+![Muscle Groups and Tags Pages](documentation/wireframes/musclegroups_and_tags.png)   
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+Wireframe for Landing Page on a Large screen
+![Large Screen Landing Page](documentation/wireframes/large_screen.png) 
+</details>
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+### Database Diagram
+To illustrate the logic of the database I used [diagrams.net](https://www.diagrams.net/).  
+![Database diagram](documentation/database_diagram.png)
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+## Features
+### Existing Features
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+### Features Left to Implement
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+## Technologies Used
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+## Testing
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+### Testing User Stories from User Experience (UX) Section
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+#### Testing User's Goal
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+#### Testing Site Owner's Goal
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+### Known Bugs
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+## Deployment
+### Clone a GitHub repository
+To make a local copy of this project you can make a clone by following these steps:
+- Log in to GitHub and find the [repository](https://github.com/Odden69/nonogram_game).
+- Above the list of files click on the code button. By the https address there is a copy symbol, click on that.
+- Open Git Bash
+- Change the current working directory to the location where you want the cloned directory.
+- Type "git clone", and paste in the copied URL.
+- Press Enter to create your local clone.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+### Deploy to Heroku
+This site was deployed to Heroku Apps. To deploy a site, follow these steps:
+- Make sure you have correct requirements.txt and Procfile committed and pushed before moving on with the deployment.
+- Log in to [Heroku apps](https://heroku.com/)
+- On the Heroku dashboard go to the "New" menu and choose "Create new app".
+- Give the app a name that needs to be unique, select your region and click "Create app".
+- Now the new app's dashboard is opened. Click on the settings tab.
 
-------
+## Credits
+### Code
 
-## FAQ about the uptime script
+### Other
 
-**Why have you added this script?**
+## Acknowledgements
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+## Conclusion
 
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+[Back to the top](#table-of-contents)
