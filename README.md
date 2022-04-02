@@ -72,8 +72,8 @@ The focus of this app is usability, both on a computer and on a mobile since it 
 - As an authorized user I can delete my sessions so that they are entirely gone from the database.
 - As an authorized user I find a link to my next planned session on the landing page so that I can easily access it in the gym.
 
-#### Authorized Users
-- As an admin user I can make a library of categories, exercises and workouts so that all authorized users can access them.
+#### Admin User
+- As an admin user I can make a library of tags, muscle groups and exercises so that all authorized users can access them.
 - As an admin user I can create new units so that all users reuse them in exercises and workouts.
 - As an admin user I can reset a user's password so that a user who lost their password still can access their saved data.
 
@@ -140,12 +140,31 @@ To make a local copy of this project you can make a clone by following these ste
 - Press Enter to create your local clone.
 
 ### Deploy to Heroku
-This site was deployed to Heroku Apps. To deploy a site, follow these steps:
-- Make sure you have correct requirements.txt and Procfile committed and pushed before moving on with the deployment.
+This site was deployed to Heroku Apps. To deploy a copy of this site, follow these steps:
+- Make sure you have correct requirements.txt and Procfile before moving on with the deployment.
 - Log in to [Heroku apps](https://heroku.com/)
 - On the Heroku dashboard go to the "New" menu and choose "Create new app".
 - Give the app a name that needs to be unique, select your region and click "Create app".
-- Now the new app's dashboard is opened. Click on the settings tab.
+- Now the new app's dashboard is opened. Click on the resources tab.
+- Add the Heroku Postgres Add-on.
+- Go to the settings tab and reveal the Config Vars. 
+- Add a SECRET_KEY Config Var and give it a string value of your choice. Preferably, use a secret key generator.
+- To save static and image files in a stable environment, you need an external hosting provider. I have used Cloudinary.
+  - Create a Cloudinary account on [cloudinary.com](https://cloudinary.com/).
+  - Copy the API Environment variable from the dashboard.
+  - Add a CLOUDINARY_URL Config Var in Heroku and paste in the Cloudinary variable here.
+- To run the project locally you need to create a env.py file i your top level directory.
+  - Copy the DATABASE_URL from Heroku's Config Vars. 
+  - Add os.environ["DATABASE_URL"] to the env.py file and set it to the DATABASE_URL copied from Heroku.
+  - Add os.environ["SECRET_KEY"] to your env.py file, copy the value of your SECRET_KEY in Heroku and paste it here.
+  - Add os.environ["CLOUDINARY_URL"] to your env.py file and paste in the API environment variable from Cloudinary.
+- IMPORTANT! Make sure your env.py file is added to your .gitignore file so that your sensitive information is kept secret.
+- Update the ALLOWED_HOSTS variable in the settings.py file by replacing *hj-itrain* with the name of your Heroku app.
+- Add, commit and push your changes.
+- Go to the deploy tab in Heroku. Choose GitHub as deployment method and connect to your GitHub repository.
+- Choose Enable Automatic Deploys or deploy manually by clicking Deploy Branch.
+- Run the app by clicking the Open app button on top of the page.
+Good luck!
 
 ## Credits
 ### Code
