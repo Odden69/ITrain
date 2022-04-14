@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<table>
+    {% for exercise in exercise_list %}
+        <tr>
+            <td>{{ exercise.name }}</td>
+            <td>{{ exercise.unit }}</td>
+            <td>{{ exercise.id }}</td>
+            <td><a href="{% url 'edit_exercise' exercise.id %}">Edit Exercise</a></td>
+        </tr>    
+    {% endfor %}
+</table>
+
+{% endblock %}

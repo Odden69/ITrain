@@ -9,7 +9,7 @@ class ExerciseUnit(models.Model):
     """
     ExerciseUnits are created by admin and used in Exercise Models
     """
-    name = models.CharField(max_length=5, unique=True, null=False, blank=True)
+    name = models.CharField(max_length=5, unique=True, null=True, blank=True)
 
     class Meta:
         ordering = ['name']
