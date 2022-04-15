@@ -13,6 +13,12 @@
     <header>
         <h1>ITrain</h1>
     </header>
+    {% for message in messages %}
+        <div id="msg">
+            {{ message | safe}}
+        </div>
+
+    {% endfor %}
 
     <section>
         {% block content %}
