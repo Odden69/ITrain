@@ -60,3 +60,12 @@ def edit_exercise(request, exercise_id):
         'exercise': exercise,
     }
     return render(request, 'edit_exercise.html', context)
+
+
+def delete_exercise(request, exercise_id):
+    """
+    For deleting a specific exercise picked from the exercise list
+    """
+    exercise = get_object_or_404(Exercise, id=exercise_id)
+    exercise.delete()
+    return redirect('exercises')
