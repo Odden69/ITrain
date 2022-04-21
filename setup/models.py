@@ -31,14 +31,21 @@ class RepsUnit(models.Model):
         return self.name
 
 
+def get_default_exercise_unit():
+    """
+    get a default value for unit; create new unit if not available
+    """
+    return ExerciseUnit.objects.get_or_create(name="-")[0].id
+
+
 class Exercise(models.Model):
     """
     Exercises can be created by authorized users. Are used in Workouts.
     """
     name = models.CharField(max_length=30, unique=True, null=False,
                             blank=False)
-    unit = models.ForeignKey(ExerciseUnit, null=True,
-                             on_delete=models.SET_NULL)
+    unit = models.ForeignKey(ExerciseUnit, null=False, blank=False,
+                             on_delete=models.SET_DEFAULT, default=get_default_exercise_unit)
     description = models.TextField(max_length=200, blank=True)
 
     class Meta:

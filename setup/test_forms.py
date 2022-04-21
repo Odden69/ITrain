@@ -29,7 +29,7 @@ class TestExerciseForm(TestCase):
     def test_exercise_form_is_rendered(self):
         form = ExerciseForm()
         self.assertIn('required id="id_name"', str(form))
-        self.assertIn('required id="id_unit"', str(form))
+        self.assertIn('id="id_unit"', str(form))
         self.assertIn('id="id_description"', str(form))
 
     def test_fields_are_explicit_in_form_metaclass(self):

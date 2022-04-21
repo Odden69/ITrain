@@ -14,22 +14,44 @@ class ExerciseList(generic.ListView):
     """
     model = Exercise
     template_name = 'exercises.html'
-    paginate_by = 10
+    paginate_by = 50
+
+
+def create_exercise(request):
+    """
+    For creating a new exercise
+    """
+    if request.method == 'POST':
+        exercise_form = ExerciseForm(request.POST)
+        if exercise_form.is_valid():
+            exercise_form.save()
+            exercise = exercise_form.save()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f'{exercise.name} was successfully created'
+            )
+            return redirect('exercises')
+    exercise_form = ExerciseForm()
+    context = {
+        'form': exercise_form
+    }
+    return render(request, 'create_exercise.html', context)
 
 
 def edit_exercise(request, exercise_id):
     """
-    For editing a specific exercise, just created or picked from a list
+    For editing a specific exercise picked from the exercise list
     """
     exercise = get_object_or_404(Exercise, id=exercise_id)
     if request.method == 'POST':
-        exercise_form = ExerciseForm(data=request.POST, instance=exercise)
+        exercise_form = ExerciseForm(request.POST, instance=exercise)
         if exercise_form.is_valid():
             exercise = exercise_form.save()
             messages.add_message(
                 request,
                 messages.SUCCESS,
-                f'{exercise.name} was successfully edited'
+                f'{exercise.name} was successfully saved'
             )
             return redirect('exercises')
     exercise_form = ExerciseForm(instance=exercise)
