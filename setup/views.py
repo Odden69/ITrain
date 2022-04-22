@@ -13,7 +13,7 @@ class ExerciseList(generic.ListView):
     Renders a list of all Exercises
     """
     model = Exercise
-    template_name = 'exercises.html'
+    template_name = 'setup/exercises.html'
     paginate_by = 50
 
 
@@ -36,7 +36,7 @@ def create_exercise(request):
     context = {
         'form': exercise_form
     }
-    return render(request, 'create_exercise.html', context)
+    return render(request, 'setup/create_exercise.html', context)
 
 
 def edit_exercise(request, exercise_id):
@@ -59,7 +59,7 @@ def edit_exercise(request, exercise_id):
         'form': exercise_form,
         'exercise': exercise,
     }
-    return render(request, 'edit_exercise.html', context)
+    return render(request, 'setup/edit_exercise.html', context)
 
 
 def delete_exercise(request, exercise_id):

@@ -17,17 +17,17 @@ class TestExerciseViews(TestCase):
     def test_get_exercise_page(self):
         response = self.client.get('/exercises/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'exercises.html')
+        self.assertTemplateUsed(response, 'setup/exercises.html')
 
     def test_get_create_exercise_page(self):
         response = self.client.get('/create_exercise/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'create_exercise.html')
+        self.assertTemplateUsed(response, 'setup/create_exercise.html')
 
     def test_get_edit_exercise_page(self):
         response = self.client.get(f'/edit_exercise/{self.exercise.id}/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'edit_exercise.html')
+        self.assertTemplateUsed(response, 'setup/edit_exercise.html')
 
     def test_get_edit_exercise_page_404_message(self):
         response = self.client.get('/edit_exercise/100/')
