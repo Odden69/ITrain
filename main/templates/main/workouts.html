@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>Workouts</h2>
+
+<a href="{% url 'create_workout'%}">
+  <button type="button" class="btn btn-primary">Create New Workout</button>
+</a>
+
+<table>
+  {% for workout in workout_list %}
+  <tr>
+    <td>{{ workout.name }}</td>
+    <td>{{ workout.id }}</td>
+
+  {% empty %}
+  <tr>You have no workouts to show</tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

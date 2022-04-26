@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- code for adding additional forms to the formset was copied from
+https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-modelformset-template/ -->
+
+<form action="{% url 'create_workout' %}" method="POST">
+    {% csrf_token %}
+    {{ workout_form }}
+    {{ formset.management_form }}
+    <div id="form_set">
+        {% for form in formset.forms %}
+        <table class='no_error'>
+            {{ form }}
+        </table>
+        {% endfor %}
+    </div>
+    <input type="button" value="Add Exercise" id="add_more">
+    <div id="empty_form" style="display:none">
+        <table class='no_error'>
+            {{ formset.empty_form }}
+        </table>
+    </div>
+    <input type="submit" value="Save Workout">
+</form>
+
+{% endblock %}
