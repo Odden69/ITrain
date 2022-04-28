@@ -4,7 +4,6 @@ This module tests the views which belong to the setup app.
 from django.test import TestCase
 from model_bakery import baker
 from .models import Workout
-from .models_for_test import t_workout_col_dict
 
 
 class TestWorkoutViews(TestCase):
@@ -30,11 +29,21 @@ class TestWorkoutViews(TestCase):
         self.assertTemplateUsed(response, 'setup/create_exercise.html')
 
     def test_create_workout_page_redirect(self):
-        data = t_workout_col_dict
+        data = {
+            'formset-INITIAL_FORMS': '0',
+            'formset-TOTAL_FORMS': '2',
+            'formset-0-exercise': self.exercise.id,
+            'formset-0-value': 10,
+            'formset-0-reps': 10,
+            'formset-0-reps_unit': self.reps_unit.id,
+            'formset-0-sets': 10,
+            'formset-1-exercise': self.exercise.id,
+            'formset-1-value': 10,
+            'formset-1-reps': 10,
+            'formset-1-reps_unit': self.reps_unit.id,
+            'formset-1-sets': 10
+        }
         response = self.client.post('/create_workout/', data=data)
         self.assertRedirects(response, '/workouts/')
         existing_workouts = Workout.objects.filter(name='Created workout')
         self.assertEqual(len(existing_workouts), 1)
-
-    # def test_empty_formset_is_not_saved(self):
-    #     empty_collection =

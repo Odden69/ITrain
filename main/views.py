@@ -37,7 +37,6 @@ def create_workout(request):
                         collection = form.save(commit=False)
                         collection.workout = workout
                         collection.save()
-                        print(workout_form)
                 messages.add_message(
                     request,
                     messages.SUCCESS,

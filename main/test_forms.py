@@ -2,7 +2,10 @@
 This module tests the forms which belong to the main app.
 """
 from django.test import TestCase
+from setup.models import Exercise, ExerciseUnit, RepsUnit
 from .forms import WorkoutForm, CollectionForm
+# from .models_for_test import instantiate_formset
+
 
 # Refering to https://www.valentinog.com/blog/testing-modelform/
 # for some of the form testing
@@ -62,3 +65,41 @@ class TestCollectionForm(TestCase):
                                             'reps_unit',
                                             'sets',
                                             ])
+
+    def test_collection_formset_is_valid(self):
+        ex_unit = ExerciseUnit.objects.create(name='kg')
+        exercise = Exercise.objects.create(name='test exercise',
+                                           unit=ex_unit)
+        rep_unit = RepsUnit.objects.create(name='reps')
+        formset = CollectionForm({
+            'formset-INITIAL_FORMS': '0',
+            'formset-TOTAL_FORMS': '2',
+            'formset-0-exercise': exercise.id,
+            'formset-0-value': '10',
+            'formset-0-reps': '10',
+            'formset-0-reps_unit': rep_unit.id,
+            'formset-0-sets': '10',
+            'formset-1-exercise': exercise.id,
+            'formset-1-value': '10',
+            'formset-1-reps': '10',
+            'formset-1-reps_unit': rep_unit.id,
+            'formset-1-sets': '10'
+        })
+        # formset = instantiate_formset(CollectionForm, [
+        #     {
+        #         'exercise': 'test exercise',
+        #         'value': 10,
+        #         'reps': 5,
+        #         'reps_unit': 'reps',
+        #         'sets': 10
+        #     },
+        #     {
+        #         'exercise': 'test exercise',
+        #         'value': 10,
+        #         'reps': 5,
+        #         'reps_unit': 'reps',
+        #         'sets': 10
+        #     },
+        # ])
+        print(formset)
+        self.assertTrue(formset.is_valid())
