@@ -14,6 +14,35 @@
     <td>{{ workout.name }}</td>
     <td>{{ workout.id }}</td>
     <td><a href="{% url 'edit_workout' workout.id %}">Edit Workout</a></td>
+    <!-- Button trigger modal -->
+    <!-- Modal code was copied from https://getbootstrap.com/docs/5.0/components/modal/ -->
+    <td><a href="#delete-workout-{{ workout.id }}" data-bs-toggle="modal">
+        <i class="fa-solid fa-trash"></i></a></td>
+  </tr>
+
+  <!-- Modal -->
+  <div class="modal fade" id="delete-workout-{{ workout.id }}" tabindex="-1"
+    aria-labelledby="delete-workout-{{ workout.id }}-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="delete-workout-{{ workout.id }}-title">Delete Workout: {{ workout.name }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to proceed?</p>
+          <p>This action can not be undone!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">
+            <a href="{% url 'delete_workout' workout.id %}">Delete</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {% empty %}
   <tr>You have no workouts to show</tr>

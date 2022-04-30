@@ -99,3 +99,12 @@ def edit_workout(request, workout_id):
         'formset': collection_formset
     }
     return render(request, 'main/edit_workout.html', context)
+
+
+def delete_workout(request, workout_id):
+    """
+    For deleting a specific workout picked from the workout list
+    """
+    workout = get_object_or_404(Workout, id=workout_id)
+    workout.delete()
+    return redirect('workouts')
