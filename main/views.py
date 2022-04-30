@@ -23,7 +23,8 @@ def create_workout(request):
     For creating a new workout
     """
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
-                                             exclude=('workout',))
+                                             exclude=('workout',),
+                                             can_delete=True)
     workout_form = WorkoutForm()
     collection_formset = CollectionFormSet(queryset=Collection.objects.none())
     if request.method == 'POST':
@@ -35,8 +36,10 @@ def create_workout(request):
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
+                    delete_form = form.cleaned_data['DELETE']
                     # Only save form in the formset if it contains an exercise
-                    if form.cleaned_data.get('exercise'):
+                    # and the delete box is unchecked
+                    if form.cleaned_data.get('exercise') and not delete_form:
                         collection = form.save(commit=False)
                         collection.workout = workout
                         collection.save()
@@ -59,24 +62,29 @@ def edit_workout(request, workout_id):
     """
     workout = get_object_or_404(Workout, id=workout_id)
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
-                                             exclude=('workout',), extra=0)
+                                             exclude=('workout',), extra=0,
+                                             can_delete=True)
     queryset = Collection.objects.filter(workout=workout)
     collection_formset = CollectionFormSet(queryset=queryset)
     workout_form = WorkoutForm(instance=workout)
-    workout_old_name = workout.name
+    workout_initial_name = workout.name
     if request.method == 'POST':
         workout_form = WorkoutForm(request.POST, instance=workout)
         collection_formset = CollectionFormSet(request.POST)
         workout_name = request.POST.get('name')
         taken = Workout.objects.filter(name=workout_name).exists()
-        if not taken or workout_name == workout_old_name:
+        if not taken or workout_name == workout_initial_name:
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
+                    delete_form = form.cleaned_data['DELETE']
                     # Only save form in the formset if it contains an exercise
-                    if form.cleaned_data.get('exercise'):
+                    if form.cleaned_data.get('exercise') and not delete_form:
                         collection = form.save(commit=False)
                         collection.workout = workout
+                        collection_formset.save(commit=False)
+                        for obj in collection_formset.deleted_objects:
+                            obj.delete()
                         collection.save()
                 messages.add_message(
                     request,
