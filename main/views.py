@@ -18,6 +18,23 @@ class WorkoutList(generic.ListView):
     paginate_by = 50
 
 
+def process_form(form, workout, collection_formset):
+    """
+    Saves an individual form in the formset.
+    But only if it contains an exercise and 
+    the delete box is unchecked.
+    """
+    if form.cleaned_data != {}:
+        delete_form = form.cleaned_data['DELETE']
+        if form.cleaned_data.get('exercise') and not delete_form:
+            collection = form.save(commit=False)
+            collection.workout = workout
+            collection_formset.save(commit=False)
+            for obj in collection_formset.deleted_objects:
+                obj.delete()
+            collection.save()
+
+
 def create_workout(request):
     """
     For creating a new workout
@@ -36,13 +53,7 @@ def create_workout(request):
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
-                    delete_form = form.cleaned_data['DELETE']
-                    # Only save form in the formset if it contains an exercise
-                    # and the delete box is unchecked
-                    if form.cleaned_data.get('exercise') and not delete_form:
-                        collection = form.save(commit=False)
-                        collection.workout = workout
-                        collection.save()
+                    process_form(form, workout, collection_formset)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
@@ -77,19 +88,11 @@ def edit_workout(request, workout_id):
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
-                    delete_form = form.cleaned_data['DELETE']
-                    # Only save form in the formset if it contains an exercise
-                    if form.cleaned_data.get('exercise') and not delete_form:
-                        collection = form.save(commit=False)
-                        collection.workout = workout
-                        collection_formset.save(commit=False)
-                        for obj in collection_formset.deleted_objects:
-                            obj.delete()
-                        collection.save()
+                    process_form(form, workout, collection_formset)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
-                    f'{workout.name} was successfully created'
+                    f'{workout.name} was successfully edited'
                 )
                 return redirect('workouts')
     context = {
