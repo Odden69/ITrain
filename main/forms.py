@@ -9,14 +9,6 @@ class WorkoutForm(forms.ModelForm):
     """
     Form for editing or creating Workouts
     """
-    # def clean_name(self):
-    #     name = self.cleaned_data['name']
-    #     obj = Workout.objects.filter(name=name)
-    #     print(obj)
-    #     if obj:
-    #         print('error-message')
-    #         raise forms.ValidationError('Workout name already exists')
-
     class Meta:
         model = Workout
         fields = ['name',

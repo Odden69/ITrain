@@ -35,8 +35,10 @@ class Collection(models.Model):
     This class connects workouts and exercises
     """
     workout = models.ForeignKey(Workout, null=False, blank=False,
-                                on_delete=models.CASCADE)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+                                on_delete=models.CASCADE,
+                                related_name='collections')
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE,
+                                 related_name='collections')
     value = models.DecimalField(max_digits=3, decimal_places=1, blank=True,
                                 null=True)
     reps = models.DecimalField(max_digits=3, decimal_places=1, null=True,

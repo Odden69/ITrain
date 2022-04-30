@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect
-from django.forms import formset_factory
+"""
+This module specifies the views used in the main app.
+"""
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.contrib import messages
-from .models import Workout
+from django.forms import modelformset_factory
+from .models import Workout, Collection
 from .forms import WorkoutForm, CollectionForm
 
 
@@ -19,9 +22,10 @@ def create_workout(request):
     """
     For creating a new workout
     """
-    CollectionFormSet = formset_factory(CollectionForm)
+    CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
+                                             exclude=('workout',))
     workout_form = WorkoutForm()
-    collection_formset = CollectionFormSet()
+    collection_formset = CollectionFormSet(queryset=Collection.objects.none())
     if request.method == 'POST':
         workout_form = WorkoutForm(request.POST)
         collection_formset = CollectionFormSet(request.POST)
@@ -29,7 +33,6 @@ def create_workout(request):
         taken = Workout.objects.filter(name=workout_name).exists()
         if not taken:
             if workout_form.is_valid() and collection_formset.is_valid():
-                workout_form.save()
                 workout = workout_form.save()
                 for form in collection_formset:
                     # Only save form in the formset if it contains an exercise
@@ -48,3 +51,43 @@ def create_workout(request):
         'workout_form': workout_form
     }
     return render(request, 'main/create_workout.html', context)
+
+
+def edit_workout(request, workout_id):
+    """
+    For editing a new workout picked from the workout list
+    """
+    workout = get_object_or_404(Workout, id=workout_id)
+    CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
+                                             exclude=('workout',), extra=0)
+    queryset = Collection.objects.filter(workout=workout)
+    collection_formset = CollectionFormSet(queryset=queryset)
+    workout_form = WorkoutForm(instance=workout)
+    workout_old_name = workout.name
+    if request.method == 'POST':
+        workout_form = WorkoutForm(request.POST, instance=workout)
+        collection_formset = CollectionFormSet(request.POST)
+        workout_name = request.POST.get('name')
+        taken = Workout.objects.filter(name=workout_name).exists()
+        if not taken or workout_name == workout_old_name:
+            if workout_form.is_valid() and collection_formset.is_valid():
+                workout = workout_form.save()
+                for form in collection_formset:
+                    # Only save form in the formset if it contains an exercise
+                    if form.cleaned_data.get('exercise'):
+                        collection = form.save(commit=False)
+                        collection.workout = workout
+                        collection.save()
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f'{workout.name} was successfully created'
+                )
+                return redirect('workouts')
+    context = {
+        'form': collection_formset,
+        'workout_form': workout_form,
+        'workout': workout,
+        'formset': collection_formset
+    }
+    return render(request, 'main/edit_workout.html', context)
