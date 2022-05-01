@@ -9,6 +9,10 @@ from .models import Workout, Collection
 from .forms import WorkoutForm, CollectionForm
 
 
+def sessions(request):
+    return render(request, 'main/sessions.html')
+
+
 class WorkoutList(generic.ListView):
     """
     Renders a list of all Workouts
@@ -21,7 +25,7 @@ class WorkoutList(generic.ListView):
 def process_form(form, workout, collection_formset):
     """
     Saves an individual form in the formset.
-    But only if it contains an exercise and 
+    But only if it contains an exercise and
     the delete box is unchecked.
     """
     if form.cleaned_data != {}:
