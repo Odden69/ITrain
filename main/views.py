@@ -1,16 +1,92 @@
 """
 This module specifies the views used in the main app.
 """
+from datetime import date, timedelta
+from calendar import monthrange
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.contrib import messages
 from django.forms import modelformset_factory
-from .models import Workout, Collection
-from .forms import WorkoutForm, CollectionForm
+from django.utils.safestring import mark_safe
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Workout, Collection, Session
+from .forms import WorkoutForm, CollectionForm, SessionForm
+from .utils import Calendar
 
 
-def sessions(request):
-    return render(request, 'main/sessions.html')
+class CalendarView(generic.ListView):
+    """
+    Renders a calendar with planned sessions in it
+    This view, and its connected methods, were mainly copied from
+    https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html
+    """
+    model = Session
+    template_name = 'main/calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('month', None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context
+
+
+def get_date(req_day):
+    """
+    Determines whether the calendar is to show the current month, or
+    the month requested by the user.
+    Used in CalendarView
+    """
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return date(year, month, day=1)
+    return date.today()
+
+
+def prev_month(d):
+    """
+    Calculates the previous month related to the one currently shown
+    in the calendar.
+    Used in CalendarView
+    """
+    first = d.replace(day=1)
+    prev_month = first - timedelta(days=1)
+    month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
+    return month
+
+
+def next_month(d):
+    """
+    Calculates the next month related to the one currently shown
+    in the calendar.
+    Used in CalendarView
+    """
+    days_in_month = monthrange(d.year, d.month)[1]
+    last = d.replace(day=days_in_month)
+    next_month = last + timedelta(days=1)
+    month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
+    return month
+
+
+def edit_session(request, session_id=None):
+    """
+    View for editing or creating a session
+    """
+    instance = Session()
+    if session_id:
+        instance = get_object_or_404(Session, id=session_id)
+    else:
+        instance = Session()
+
+    session_form = SessionForm(request.POST or None, instance=instance)
+    if request.POST and session_form.is_valid():
+        session_form.save()
+        return HttpResponseRedirect(reverse('home'))
+    return render(request, 'main/edit_session.html', {'form': session_form})
 
 
 class WorkoutList(generic.ListView):
@@ -22,11 +98,12 @@ class WorkoutList(generic.ListView):
     paginate_by = 50
 
 
-def process_form(form, workout, collection_formset):
+def process_collection_form(form, workout, collection_formset):
     """
     Saves an individual form in the formset.
     But only if it contains an exercise and
     the delete box is unchecked.
+    Used in create_workout and edit_workout
     """
     if form.cleaned_data != {}:
         delete_form = form.cleaned_data['DELETE']
@@ -41,7 +118,7 @@ def process_form(form, workout, collection_formset):
 
 def create_workout(request):
     """
-    For creating a new workout
+    View for creating a new workout
     """
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
                                              exclude=('workout',),
@@ -57,7 +134,7 @@ def create_workout(request):
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
-                    process_form(form, workout, collection_formset)
+                    process_collection_form(form, workout, collection_formset)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
@@ -73,7 +150,7 @@ def create_workout(request):
 
 def edit_workout(request, workout_id):
     """
-    For editing a new workout picked from the workout list
+    View for editing a new workout picked from the workout list
     """
     workout = get_object_or_404(Workout, id=workout_id)
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
@@ -92,7 +169,7 @@ def edit_workout(request, workout_id):
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
                 for form in collection_formset:
-                    process_form(form, workout, collection_formset)
+                    process_collection_form(form, workout, collection_formset)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
@@ -110,7 +187,7 @@ def edit_workout(request, workout_id):
 
 def delete_workout(request, workout_id):
     """
-    For deleting a specific workout picked from the workout list
+    View for deleting a specific workout picked from the workout list
     """
     workout = get_object_or_404(Workout, id=workout_id)
     workout.delete()

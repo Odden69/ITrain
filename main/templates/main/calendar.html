@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Welcome to ITrain</h1>
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'home' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
+	<a class="btn btn-info right" href="{% url 'create_session' %}"> New session </a>
+</div>
+{{ calendar }}
+
+{% endblock %}

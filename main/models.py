@@ -3,6 +3,7 @@ This module specifies the models which belong to the main app.
 """
 from django.db import models
 from django.core.validators import MaxValueValidator
+from django.urls import reverse
 from setup.models import RepsUnit, Exercise
 
 
@@ -25,7 +26,8 @@ class Workout(models.Model):
 
 def get_default_reps_unit():
     """
-    get a default value for reps unit; create new unit if not available
+    Get a default value for reps unit; create new unit if not available.
+    Used in Collection
     """
     return RepsUnit.objects.get_or_create(name="reps")[0].id
 
@@ -48,3 +50,25 @@ class Collection(models.Model):
                                   default=get_default_reps_unit)
     sets = models.PositiveIntegerField(validators=[MaxValueValidator(100)],
                                        null=True, blank=True)
+
+
+class Session(models.Model):
+    """
+    Workouts can be created by authorized users.
+    """
+    name = models.CharField(max_length=80, null=False, blank=False)
+    date = models.DateField(unique=True)
+    workout = models.ManyToManyField(Workout, blank=True,
+                                     related_name='workouts')
+    comment = models.TextField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def get_html_url(self):
+        """
+        Provides a link to edit an existing session
+        """
+        url = reverse('edit_session', args=(self.id,))
+        return f'<a href="{url}"> {self.name} </a>'
