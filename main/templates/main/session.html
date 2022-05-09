@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+    <div class="jumbotron-head justify-content-center text-center mt-3">
+        <h1>Session on {{ session.date }}&nbsp;
+            <a href="{% url 'edit_session' session.id %}">
+                <i class="fa-solid fa-edit"></i></a>
+        </h1>
+        <h2>{{ session.name }}</h2>
+        {% if session.comment != '' %}
+        <div class="session-comment dark-clr">
+            <p class="left p-2">{{ session.comment }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
+        {% for workout in session.workout.all %}
+        <div class="row session-workout content-list row-cols-1">
+            <div class="col grid-col1">
+                <p>Workout</p>
+            </div>
+            <div class="col grid-col2">
+                <h3>{{ workout.name }}</h3>
+            </div>
+            {% for collection in workout.collections.all %}
+            <div class="col grid-col1">
+                <p>Exercise</p>
+            </div>
+            <div class="col grid-col3">
+                <h3>{{ collection.exercise.name }}</h3>
+                <div class="row text-center">
+                    <div class="col-4 grid-col31">
+                        {% if collection.exercise.unit.name != '-' %}
+                        {{ collection.exercise.unit.name }}
+                        {% endif %}
+                    </div>
+                    <div class="col-4 grid-col31">
+                        No of {{ collection.reps_unit.name }}
+                    </div>
+                    <div class="col-4 grid-col31">
+                        No of sets
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col-4 grid-col32">
+                        {{ collection.value }}
+                    </div>
+                    <div class="col-4 grid-col32">
+                        {{ collection.get_reps_trunc_zero }}
+                    </div>
+                    <div class="col-4 grid-col32">
+                        {{ collection.sets }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

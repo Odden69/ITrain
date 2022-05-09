@@ -25,7 +25,7 @@ class Calendar(HTMLCalendar):
 
         if day != 0:
             return f'<td><span class="date">{day}</span><ul> {d} </ul></td>'
-        return '<td></td>'
+        return '<td class="mark"></td>'
 
     def formatweek(self, theweek, sessions):
         week = ''

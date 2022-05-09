@@ -1,71 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Montserrat:wght@400;700&display=swap');
+
+/* General styles */
+body {
+  font-family: 'IM Fell English', serif;
+  color: white;
+  min-height: 100vh;
+  background: url('../images/dumbell.jpg');
+  overflow-x: hidden;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.dark-clr {
+  color: black;
+}
+
+a {
+  color: #A87556;
+}
+
+a:hover {
+  color: #696A58;
+}
+
+section {
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.jumbotron {
+  overflow: auto;
+  /* background-color: #C7C7BC; */
+  background-color: #12110D;
+  color: white;
+  height: 85vh;
+}
+
+.content-list-container {
+  width: 75%;
+}
+
+.content-list {
+  background-color: #C7C7BC;
+  border: solid 1px black;
+}
+
+ /* Navbar */
+.navbar {
+  background-color: #12110D;
+}
+
+/* calendar styles */
 
 .calendar {
-    width: 98%;
-    margin: auto;
-    font-size: 13px;
+  width: 98%;
+  margin: auto;
+  font-size: 13px;
+}
+
+.calendar tr,
+.calendar td {
+  border: 1px solid black;
+}
+
+.calendar th {
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar td {
+  width: 200px;
+  height: 150px;
+  padding: 20px 0px 0px 5px;
+}
+
+.month {
+  font-size: 25px;
+}
+
+.date {
+  font-size: 16px;
+}
+
+ul {
+  height: 100%;
+  padding: 0px 5px 0px 20px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.btn {
+  outline: none;
+  color: black;
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+}
+
+.clearfix {
+  margin: 15px;
+}
+
+.form {
+  margin: auto;
+}
+
+.form input,
+.form select,
+.form textarea {
+  border-radius: 5px;
+  border: 1px solid #17a2b8;
+  outline: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
+}
+
+.mark {
+  background-color: red;
+}
+
+.session-comment {
+  width: 350px;
+  height: 75px;
+  background-color: #C7C7BC;
+  border: solid 1px black;
+  margin: 0 auto;
+}
+
+.session-workout {
+  margin-bottom: 1.5rem;
+}
+
+.grid-col1 {
+  height: 1.5rem;
+}
+
+.grid-col2 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: solid 1px black;
+}
+
+.grid-col3 {
+  padding-top: 0.75rem;
+  border-bottom: solid 1px black;
+}
+
+.grid-col3:last-of-type {
+  border-bottom: none;
+}
+
+.grid-col31 {
+  height: 1.5rem;
+  border-top: solid 1px black;
+  border-right: solid 1px black;
+}
+
+.grid-col32 {
+  font-weight: bold;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-right: solid 1px black;
+}
+
+.grid-col32:last-of-type,
+.grid-col31:last-of-type {
+  border-right: none;
+}
+
+/* For screen width < 768px */
+@media screen and (max-width: 768px) {
+
+  .content-list-container {
+    width: 90%;
   }
-  
-  .calendar tr, .calendar td {
-    border: 1px solid black;
-  }
-  
-  .calendar th {
-    padding: 10px;
-    text-align: center;
-    font-size: 18px;
-  }
-  
-  .calendar td {
-    width: 200px;
-    height: 150px;
-    padding: 20px 0px 0px 5px;
-  }
-  
-  .month {
-    font-size: 25px;
-  }
-  
-  .date {
-    font-size: 16px;
-  }
-  
-  ul {
-    height: 100%;
-    padding: 0px 5px 0px 20px;
-  }
-  
-  a {
-    color: #17a2b8;
+}
+
+/* For screen width < 576px */
+@media screen and (max-width: 576px) {
+
+  body {
+    background: #12110D;
   }
 
-  .left {
-    float: left;
-  }
-  
-  .right {
-    float: right;
-  }
-  
-  .btn {
-    outline: none;
-    color: black;
-    background-color: transparent;
-    box-shadow: 0 0 0 0;
-  }
-  
-  .clearfix {
-    margin: 15px;
+  .session-comment {
+    width: 250px;
   }
 
-  .form {
-    margin: auto;
-  }
-  
-  .form input, .form select, .form textarea {
-    border-radius: 5px;
-    border: 1px solid #17a2b8;
-    outline: none;
-    background: none;
-    padding: 5px;
+  .content-list-container {
     width: 100%;
   }
+
+  .grid-col31 {
+    padding: 0.5px;
+    font-size: smaller;
+  }
+}
+

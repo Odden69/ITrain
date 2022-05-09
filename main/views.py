@@ -72,9 +72,22 @@ def next_month(d):
     return month
 
 
+def session_view(request, session_id):
+    """
+    A view for showing an individual session
+    """
+    session = get_object_or_404(Session, id=session_id)
+    context = {
+        'session': session,
+    }
+    return render(request, 'main/session.html', context)
+
+
 def edit_session(request, session_id=None):
     """
     View for editing or creating a session
+    This view was mainly copied from
+    https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html
     """
     instance = Session()
     if session_id:
@@ -85,7 +98,7 @@ def edit_session(request, session_id=None):
     session_form = SessionForm(request.POST or None, instance=instance)
     if request.POST and session_form.is_valid():
         session_form.save()
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('home'))    
     return render(request, 'main/edit_session.html', {'form': session_form})
 
 

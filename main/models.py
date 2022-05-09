@@ -51,6 +51,11 @@ class Collection(models.Model):
     sets = models.PositiveIntegerField(validators=[MaxValueValidator(100)],
                                        null=True, blank=True)
 
+    def get_reps_trunc_zero(self):
+        if self.reps % 1 == 0:
+            self.reps = int(self.reps)
+        return self.reps
+
 
 class Session(models.Model):
     """
@@ -70,5 +75,5 @@ class Session(models.Model):
         """
         Provides a link to edit an existing session
         """
-        url = reverse('edit_session', args=(self.id,))
+        url = reverse('session', args=(self.id,))
         return f'<a href="{url}"> {self.name} </a>'
