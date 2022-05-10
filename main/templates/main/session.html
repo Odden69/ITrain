@@ -5,13 +5,13 @@
 <div class="jumbotron container p1 p-sm-2 mt-md-3">
     <div class="jumbotron-head justify-content-center text-center mt-3">
         <h1>Session on {{ session.date }}&nbsp;
-            <a href="{% url 'edit_session' session.id %}">
+            <a class="mdl-light-clr" href="{% url 'edit_session' session.id %}">
                 <i class="fa-solid fa-edit"></i></a>
         </h1>
-        <h2>{{ session.name }}</h2>
+        <h2 class="mb-4">{{ session.name }}</h2>
         {% if session.comment != '' %}
         <div class="session-comment dark-clr">
-            <p class="left p-2">{{ session.comment }}</p>
+            <p class="start p-2">{{ session.comment }}</p>
         </div>
         {% endif %}
     </div>
@@ -22,14 +22,37 @@
                 <p>Workout</p>
             </div>
             <div class="col grid-col2">
-                <h3>{{ workout.name }}</h3>
+                <h4 class="mb-0">{{ workout.name }}
+                    {% if workout.description != '' %}
+                    <a class="mdl-dark-clr end me-2" data-bs-toggle="collapse"
+                        href="#collapseSessionWorkout{{ workout.id }}" aria-expanded="false"
+                        aria-controls="collapseSessionWorkout{{ workout.id }}"><i class="fa-solid fa-info"></i></a>
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="collapse" id="collapseSessionWorkout{{ workout.id }}">
+                <div class="card card-body">
+                    {{ workout.description }}
+                </div>
             </div>
             {% for collection in workout.collections.all %}
             <div class="col grid-col1">
                 <p>Exercise</p>
             </div>
             <div class="col grid-col3">
-                <h3>{{ collection.exercise.name }}</h3>
+                <h4>{{ collection.exercise.name }}
+                    {% if collection.exercise.description != '' %}
+                    <a class="mdl-dark-clr end me-2" data-bs-toggle="collapse"
+                        href="#collapseSessionExercise{{ collection.exercise.id }}" aria-expanded="false"
+                        aria-controls="collapseSessionExercise{{ collection.exercise.id }}"><i
+                            class="fa-solid fa-info"></i></a>
+                    {% endif %}
+                </h4>
+                <div class="collapse" id="collapseSessionExercise{{ collection.exercise.id }}">
+                    <div class="card card-body">
+                        {{ workout.description }}
+                    </div>
+                </div>
                 <div class="row text-center">
                     <div class="col-4 grid-col31">
                         {% if collection.exercise.unit.name != '-' %}

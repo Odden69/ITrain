@@ -17,13 +17,45 @@ body {
   color: black;
 }
 
-a {
+.mdl-dark-clr {
+  color: #6F310A;
+}
+
+.mdl-light-clr {
   color: #A87556;
 }
 
-a:hover {
-  color: #696A58;
+a.mdl-dark-clr:hover {
+  color: #A87556;
 }
+
+a.mdl-light-clr:hover {
+  color: #6F310A;
+}
+
+.btn {
+  outline: solid #A87556;
+  color: white;
+  background-color: #6F310A;
+  border: none;
+  box-shadow: 0 0 0 0;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+ background-color: #A87556;
+ color: black;
+ outline: none;
+ border: none;
+ box-shadow: none;
+}
+
+.card {
+  background-color: #C7C7BC;
+  border: none;
+}
+
 
 section {
   color: black;
@@ -90,19 +122,12 @@ ul {
   padding: 0px 5px 0px 20px;
 }
 
-.left {
+.start {
   float: left;
 }
 
-.right {
+.end {
   float: right;
-}
-
-.btn {
-  outline: none;
-  color: black;
-  background-color: transparent;
-  box-shadow: 0 0 0 0;
 }
 
 .clearfix {
@@ -142,21 +167,29 @@ ul {
 
 .grid-col1 {
   height: 1.5rem;
+  border-top: solid 1px black;
+}
+
+.grid-col1:first-of-type {
+  border-top: none;
 }
 
 .grid-col2 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  border-bottom: solid 1px black;
+}
+
+.session-workout .grid-col2 {
+  border-top: solid 1px black;
+}
+
+.session-workout .grid-col2:first-of-type,
+.session-workout .grid-col2:nth-of-type(2) {
+  border-top: none;
 }
 
 .grid-col3 {
   padding-top: 0.75rem;
-  border-bottom: solid 1px black;
-}
-
-.grid-col3:last-of-type {
-  border-bottom: none;
 }
 
 .grid-col31 {
