@@ -114,10 +114,6 @@ footer {
   border: solid 1px black;
 }
 
-.modal-footer a {
-  color: inherit;
-}
-
 /* calendar styles */
 .calendar {
   width: 98%;
