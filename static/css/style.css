@@ -5,6 +5,9 @@ body {
   font-family: 'IM Fell English', serif;
   color: white;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background: url('../images/dumbell.jpg');
   overflow-x: hidden;
   -webkit-background-size: cover;
@@ -69,6 +72,10 @@ a.med-light-clr:hover {
 section {
   color: black;
   font-family: 'Montserrat', sans-serif;
+  min-height: 70%;
+    min-height: -webkit-calc(100% - 186px);
+    min-height: -moz-calc(100% - 186px);
+    min-height: calc(100% - 186px);
 }
 
 /* Navbar */
@@ -79,10 +86,7 @@ section {
 /* Footer */
 footer {
   background-color: #12110D;
-}
-
-footer li {
-  display: inline;
+  margin-top: auto;
 }
 
 .social-links a {
@@ -98,7 +102,7 @@ footer li {
   /* background-color: #C7C7BC; */
   background-color: #12110D;
   color: white;
-  min-height: 77vh;
+  min-height: 70vh;
 }
 
 .content-list-container {
@@ -108,6 +112,10 @@ footer li {
 .content-list {
   background-color: #C7C7BC;
   border: solid 1px black;
+}
+
+.modal-footer a {
+  color: inherit;
 }
 
 /* calendar styles */
