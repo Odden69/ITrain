@@ -73,7 +73,7 @@ class Session(models.Model):
     @property
     def get_html_url(self):
         """
-        Provides a link to edit an existing session
+        Provides a link to view an existing session
         """
         url = reverse('session', args=(self.id,))
-        return f'<a href="{url}"> {self.name} </a>'
+        return url

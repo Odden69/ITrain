@@ -2,12 +2,18 @@
 {% load static %}
 {% block content %}
 
-<h1>Welcome to ITrain</h1>
-<div class="clearfix">
-	<a class="btn btn-info left" href="{% url 'home' %}?{{ prev_month }}"> Previous Month </a>
-	<a class="btn btn-info right" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
-	<a class="btn btn-info right" href="{% url 'create_session' %}"> New session </a>
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+	<div class="jumbotron-head justify-content-center text-center mt-3">
+		<h1>Welcome to ITrain</h1>
+	</div>
+	<div class="container-md content-list-container p-sm-4 mt-3 mb-3 gy-4 dark-clr">
+		<div class="clearfix">
+			<a class="btn start" href="{% url 'home' %}?{{ prev_month }}"> Previous Month </a>
+			<a class="btn end" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
+		</div>
+		<div class="row content-list row-cols-1">
+				{{ calendar }}
+		</div>
+	</div>
 </div>
-{{ calendar }}
-
 {% endblock %}

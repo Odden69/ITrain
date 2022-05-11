@@ -18,14 +18,20 @@ class Calendar(HTMLCalendar):
         super(Calendar, self).__init__()
 
     def formatday(self, day, sessions):
-        sessions_per_day = sessions.filter(date__day=day)
+        session = sessions.filter(date__day=day).first()
         d = ''
-        for session in sessions_per_day:
-            d += f'<li> {session.get_html_url} </li>'
-
+        if session is not None:
+            d = f'<li><strong>{session.name}</strong></li>'
+            return f'<td><a class="med-dark-clr" \
+                href="{session.get_html_url}"> \
+                <span class="date">{day}</span> \
+                <ul class="d-none d-md-block"> {d} \
+                </ul><ul class="d-block d-md-none"> \
+                <i class="fa-solid fa-dumbbell"> \
+                </i></ul></a></td>'
         if day != 0:
-            return f'<td><span class="date">{day}</span><ul> {d} </ul></td>'
-        return '<td class="mark"></td>'
+            return f'<td><span class="date">{day}</span><ul><ul></td>'
+        return '<td class="no-date"></td>'
 
     def formatweek(self, theweek, sessions):
         week = ''
@@ -44,4 +50,5 @@ class Calendar(HTMLCalendar):
         cal += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):
             cal += f'{self.formatweek(week, sessions)}\n'
+        cal += '</table>\n'
         return cal

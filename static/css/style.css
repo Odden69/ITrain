@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Montserrat:wght@400;700&display=swap');
 
-/* General styles */
+/* General */
 body {
   font-family: 'IM Fell English', serif;
   color: white;
@@ -14,6 +14,14 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.start {
+  float: left;
+}
+
+.end {
+  float: right;
 }
 
 .dark-clr {
@@ -57,8 +65,8 @@ a.med-light-clr:hover {
 .btn:active,
 .btn:focus {
  background-color: #A87556;
+ outline: solid #6F310A;
  color: black;
- outline: none;
  border: none;
  box-shadow: none;
 }
@@ -114,9 +122,9 @@ footer {
   border: solid 1px black;
 }
 
-/* calendar styles */
+/* calendar */
 .calendar {
-  width: 98%;
+  width: 100%;
   margin: auto;
   font-size: 13px;
 }
@@ -133,9 +141,13 @@ footer {
 }
 
 .calendar td {
-  width: 200px;
-  height: 150px;
+  width: 14.2%;
+  height: 95px;
   padding: 20px 0px 0px 5px;
+}
+
+.calendar td:hover {
+  background-color: #ECECE9;
 }
 
 .month {
@@ -144,23 +156,28 @@ footer {
 
 .date {
   font-size: 16px;
+  color: black;
+}
+
+.calendar .no-date,
+.calendar .no-date:hover {
+  background-color: rgba(168, 117, 86, 0.5);
 }
 
 ul {
   height: 100%;
   padding: 0px 5px 0px 20px;
+  padding-inline-start: 5px;
 }
 
-.start {
-  float: left;
-}
-
-.end {
-  float: right;
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .clearfix {
-  margin: 15px;
+  margin: 15px 5px;
 }
 
 .form {
@@ -176,10 +193,6 @@ ul {
   background: none;
   padding: 5px;
   width: 100%;
-}
-
-.mark {
-  background-color: red;
 }
 
 .session-comment {
