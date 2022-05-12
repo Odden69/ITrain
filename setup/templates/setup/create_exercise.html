@@ -3,11 +3,24 @@
 
 {%load crispy_forms_tags %}
 
-<h2>{{ exercise.name }}</h2>
-<form action="{% url 'create_exercise' %}" method="POST">
-    {% csrf_token %}
-    {{ form | crispy }}
-    <input type="submit" value="Save Exercise">
-</form>
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+    <div class="jumbotron-head justify-content-center text-center mt-3">
+        <h2 class="pt-2">Create New Exercise</h2>
+        <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
+            <a href="{% url 'exercises' %}">
+                <button class="btn ms-2 mb-2">Cancel</button>
+            </a>
+            <div class="row session-workout content-list row-cols-1">
+                <form action="{% url 'create_exercise' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <div class="text-center pt-3 pb-3">
+                        <input type="submit" class="btn" value="Save Exercise">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content%}
