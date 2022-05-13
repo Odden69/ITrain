@@ -162,6 +162,10 @@ footer {
   color: black;
 }
 
+.today {
+  background-color: rgba(97, 128, 160, 0.25);
+}
+
 .calendar .no-date,
 .calendar .no-date:hover {
   background-color: rgba(168, 117, 86, 0.5);

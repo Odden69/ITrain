@@ -8,6 +8,7 @@ with only a few modifications to fit the ITrain app
 """
 # from datetime import datetime, timedelta
 from calendar import HTMLCalendar
+from datetime import date
 from .models import Session
 
 
@@ -17,26 +18,27 @@ class Calendar(HTMLCalendar):
         self.month = month
         super(Calendar, self).__init__()
 
-    def formatday(self, day, sessions):
+    def formatday(self, day, month, year, sessions):
         session = sessions.filter(date__day=day).first()
         d = ''
         if session is not None:
+            is_today = 'today' if session.date == date.today() else ''
             d = f'<li><strong>{session.name}</strong></li>'
-            return f'<td><a class="med-dark-clr" \
+            return f'<td class="{is_today}"><a class="med-dark-clr" \
                 href="{session.get_html_url}"> \
                 <span class="date">{day}</span> \
                 <ul class="d-none d-md-block"> {d} \
-                </ul><ul class="d-block d-md-none"> \
+                </ul><ul class="d-block d-md-none text-center"> \
                 <i class="fa-solid fa-dumbbell"> \
                 </i></ul></a></td>'
         if day != 0:
             return f'<td><span class="date">{day}</span><ul><ul></td>'
         return '<td class="no-date"></td>'
 
-    def formatweek(self, theweek, sessions):
+    def formatweek(self, theweek, month, year, sessions):
         week = ''
         for d, weekday in theweek:
-            week += self.formatday(d, sessions)
+            week += self.formatday(d, month, year, sessions)
         return f'<tr> {week} </tr>'
 
     def formatmonth(self, withyear=True):
@@ -49,6 +51,7 @@ class Calendar(HTMLCalendar):
         cal += f'{month_name}\n'
         cal += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):
-            cal += f'{self.formatweek(week, sessions)}\n'
+            cal += \
+                f'{self.formatweek(week, self.month, self.year, sessions)}\n'
         cal += '</table>\n'
         return cal
