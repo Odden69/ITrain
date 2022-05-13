@@ -18,7 +18,7 @@ class Calendar(HTMLCalendar):
         self.month = month
         super(Calendar, self).__init__()
 
-    def formatday(self, day, month, year, sessions):
+    def formatday(self, day, sessions):
         session = sessions.filter(date__day=day).first()
         d = ''
         if session is not None:
@@ -35,10 +35,10 @@ class Calendar(HTMLCalendar):
             return f'<td><span class="date">{day}</span><ul><ul></td>'
         return '<td class="no-date"></td>'
 
-    def formatweek(self, theweek, month, year, sessions):
+    def formatweek(self, theweek, sessions):
         week = ''
         for d, weekday in theweek:
-            week += self.formatday(d, month, year, sessions)
+            week += self.formatday(d, sessions)
         return f'<tr> {week} </tr>'
 
     def formatmonth(self, withyear=True):
@@ -52,6 +52,6 @@ class Calendar(HTMLCalendar):
         cal += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):
             cal += \
-                f'{self.formatweek(week, self.month, self.year, sessions)}\n'
+                f'{self.formatweek(week, sessions)}\n'
         cal += '</table>\n'
         return cal
