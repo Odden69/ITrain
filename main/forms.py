@@ -2,7 +2,6 @@
 This module contains forms used in the setup app.
 """
 from django import forms
-from crispy_forms.helper import FormHelper
 from .models import Workout, Collection, Session
 from setup.models import Exercise, RepsUnit
 
@@ -68,6 +67,10 @@ class SessionForm(forms.ModelForm):
     """
     Form for editing or creating Sessions
     """
+    workout = forms.ModelMultipleChoiceField(queryset=Workout.objects.all(),
+                                             label='Workout - \
+                                                select many with CTRL')
+
     class Meta:
         model = Session
         fields = ['name',
@@ -77,7 +80,25 @@ class SessionForm(forms.ModelForm):
                   ]
         # date is a HTML5 input type, format to make date show on fields
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}, format='%Y-%m-%d'),
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter Session Name',
+                    }
+                    ),
+            'date': forms.DateInput(
+                attrs={'type': 'date'},
+                format='%Y-%m-%d'),
+            'workout': forms.SelectMultiple(
+                attrs={
+                    'placeholder': 'Enter Session Name',
+                    }
+                    ),
+            'comment': forms.Textarea(
+                attrs={
+                    'rows': 4,
+                    'placeholder': 'Comment your session here',
+                    }
+                    ),
         }
 
     def __init__(self, *args, **kwargs):
