@@ -2,7 +2,9 @@
 This module contains forms used in the setup app.
 """
 from django import forms
+from crispy_forms.helper import FormHelper
 from .models import Workout, Collection, Session
+from setup.models import Exercise, RepsUnit
 
 
 class WorkoutForm(forms.ModelForm):
@@ -17,16 +19,27 @@ class WorkoutForm(forms.ModelForm):
         widgets = {'name': forms.TextInput(
                     attrs={
                         'class': 'form-control',
-                        'placeholder': 'Enter Workout Name'
+                        'placeholder': 'Enter Workout Name',
                     }
-                )
-        }
+                    ),
+                   'description': forms.Textarea(
+                    attrs={
+                        'rows': 4,
+                        'placeholder': 'Enter a description of the workout',
+                    }
+                    )
+                   }
 
 
 class CollectionForm(forms.ModelForm):
     """
     Form for specifing an exercise's connection to a specific workout
     """
+    exercise = forms.ModelChoiceField(queryset=Exercise.objects.all(),
+                                      empty_label='Select an Exercise')
+    reps_unit = forms.ModelChoiceField(queryset=RepsUnit.objects.all(),
+                                       empty_label='Select a Reps unit')
+
     class Meta:
         model = Collection
         fields = ['exercise',
@@ -37,7 +50,17 @@ class CollectionForm(forms.ModelForm):
                   ]
         widgets = {'exercise': forms.Select(attrs={
                         'class': 'form-control',
-                        })
+                   }),
+                   'value': forms.NumberInput(attrs={
+                       'placeholder': 'If the exercise has a unit, like kg,\
+ then enter a value.'
+                   }),
+                   'reps': forms.NumberInput(attrs={
+                       'placeholder': 'Enter number of reps'
+                   }),
+                   'sets': forms.NumberInput(attrs={
+                       'placeholder': 'Enter number of sets'
+                   })
                    }
 
 

@@ -89,6 +89,10 @@ section {
     min-height: calc(100% - 186px);
 }
 
+hr {
+  border-top: solid 2px #6F310A;
+}
+
 /* Navbar */
 .navbar {
   background-color: #12110D;
@@ -298,6 +302,22 @@ textarea {
   .grid-col31 {
     padding: 0.5px;
     font-size: smaller;
+  }
+}
+
+/* For screen width < 455px */
+@media screen and (max-width: 455px) {
+
+  .three-button-container .btn,
+  .three-button-container span {
+    display: block;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 15px;
+  }
+
+  .three-button-container span {
+    margin-left: calc(50% - 48px);
   }
 }
 
