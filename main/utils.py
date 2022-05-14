@@ -8,7 +8,6 @@ with only a few modifications to fit the ITrain app
 """
 # from datetime import datetime, timedelta
 from calendar import HTMLCalendar
-from datetime import date
 from .models import Session
 
 
@@ -22,9 +21,8 @@ class Calendar(HTMLCalendar):
         session = sessions.filter(date__day=day).first()
         d = ''
         if session is not None:
-            is_today = 'today' if session.date == date.today() else ''
             d = f'<li><strong>{session.name}</strong></li>'
-            return f'<td class="{is_today}"><a class="med-dark-clr" \
+            return f'<td class="session_date"><a class="med-dark-clr" \
                 href="{session.get_html_url}"> \
                 <span class="date">{day}</span> \
                 <ul class="d-none d-md-block"> {d} \

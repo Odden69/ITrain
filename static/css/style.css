@@ -149,7 +149,7 @@ footer {
   padding: 20px 0px 0px 5px;
 }
 
-.calendar td:hover {
+.session_date:hover {
   background-color: #ECECE9;
 }
 
@@ -166,8 +166,7 @@ footer {
   background-color: rgba(97, 128, 160, 0.25);
 }
 
-.calendar .no-date,
-.calendar .no-date:hover {
+.calendar .no-date {
   background-color: rgba(168, 117, 86, 0.5);
 }
 
