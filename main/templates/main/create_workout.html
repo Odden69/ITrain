@@ -2,27 +2,53 @@
 {% load static %}
 {% block content %}
 
+{%load crispy_forms_tags %}
+
 <!-- code for adding additional forms to the formset was copied from
 https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-modelformset-template/ -->
 
-<form action="{% url 'create_workout' %}" method="POST">
-    {% csrf_token %}
-    {{ workout_form }}
-    {{ formset.management_form }}
-    <div id="form_set">
-        {% for form in formset.forms %}
-        <table class='no_error'>
-            {{ form }}
-        </table>
-        {% endfor %}
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+    <div class="jumbotron-head justify-content-center text-center mt-3">
+        <h2 class="pt-2">Create New Workout</h2>
+        <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
+            <div class="clearfix text-center">
+                <a href="{% url 'workouts' %}">
+                    <button class="btn float-sm-start ms-2 mb-2">Cancel</button>
+                </a>
+            </div>
+            <div class="row session-workout content-list row-cols-1">
+                <form action="{% url 'create_workout' %}" method="POST">
+                    {% csrf_token %}
+                    {{ workout_form | crispy }}
+                    {{ formset.management_form }}
+                    <div class="clearfix pt-1 text-center">
+                        <input type="button" class="btn float-sm-start mb-3 mb-am-0 add_more" value="Add Exercise">
+                        <input type="submit" class="btn float-sm-end" value="Save Workout">
+                    </div>
+                    <div id="form_set">
+                        {% for form in formset.forms %}
+                        <hr>
+                        <table class='no_error'>
+                            {{ form | crispy }}
+                        </table>
+                        {% endfor %}
+                    </div>
+                    <div id="empty_form" style="display:none">
+                        <hr>
+                        <table class='no_error'>
+                            {{ formset.empty_form | crispy }}
+                        </table>
+                    </div>
+                    {% if formset.total_form_count > 1 %}
+                    <div class="three-button-container pt-3 text-center">
+                        <input type="button" class="btn float-sm-start mb-3 mb-am-0 add_more" value="Add Exercise">
+                        <input type="submit" class="btn float-sm-end" value="Save Workout">
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </div>
-    <input type="button" value="Add Exercise" id="add_more">
-    <div id="empty_form" style="display:none">
-        <table class='no_error'>
-            {{ formset.empty_form }}
-        </table>
-    </div>
-    <input type="submit" value="Save Workout">
-</form>
+</div>
 
 {% endblock %}
