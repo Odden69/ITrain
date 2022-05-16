@@ -6,15 +6,28 @@
 	<div class="jumbotron-head justify-content-center text-center mt-3">
 		<h1>Welcome to ITrain</h1>
 	</div>
-	<div class="container-md content-list-container p-sm-4 mt-3 mb-3 gy-4 dark-clr text-center">
-		<div class="clearfix">
+	{% if user.is_authenticated %}
+	<div class="container-md content-list-container p-sm-4 mt-3 mb-3 gy-4 dark-clr">
+		<div class="clearfix text-center">
 			<a class="btn start" href="{% url 'home' %}?{{ prev_month }}"> Previous Month </a>
 			<a class="btn end" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
 			<a class="btn" href="{% url 'create_session' %}"> Create New session </a>
 		</div>
 		<div class="row content-list row-cols-1">
-				{{ calendar }}
+			{{ calendar }}
 		</div>
 	</div>
+	{% else %}
+	<div class="container-md content-list-container p-sm-4 mt-3 mb-3 gy-4 dark-clr">
+		<div class="row session-workout content-list row-cols-1">
+			<div class="clearfix text-center">
+				<div>
+					<h4>ITrain is the only app you need</h4>
+				</div>
+				<a class="btn" href="{% url 'login' %}">Log in / Sign up</a>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 </div>
 {% endblock %}

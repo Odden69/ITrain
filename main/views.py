@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Workout, Collection, Session
 from .forms import WorkoutForm, CollectionForm, SessionForm
 from .utils import Calendar
@@ -29,7 +30,6 @@ def sign_up(request):
     context = {
         'form': form,
     }
-    
     return render(request, 'registration/sign_up.html', context)
 
 
@@ -101,6 +101,7 @@ def session_view(request, session_id):
     return render(request, 'main/session.html', context)
 
 
+@login_required
 def edit_session(request, session_id=None):
     """
     View for editing or creating a session
@@ -146,7 +147,7 @@ def process_collection_form(form, workout, collection_formset):
                 obj.delete()
             collection.save()
 
-
+@login_required
 def create_workout(request):
     """
     View for creating a new workout
@@ -178,7 +179,7 @@ def create_workout(request):
     }
     return render(request, 'main/create_workout.html', context)
 
-
+@login_required
 def edit_workout(request, workout_id):
     """
     View for editing a new workout picked from the workout list
@@ -215,7 +216,7 @@ def edit_workout(request, workout_id):
     }
     return render(request, 'main/edit_workout.html', context)
 
-
+@login_required
 def delete_workout(request, workout_id):
     """
     View for deleting a specific workout picked from the workout list

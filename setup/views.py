@@ -4,6 +4,7 @@ This module specifies the views used in the setup app.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Exercise
 from .forms import ExerciseForm
 
@@ -17,6 +18,7 @@ class ExerciseList(generic.ListView):
     paginate_by = 50
 
 
+@login_required
 def create_exercise(request):
     """
     For creating a new exercise
@@ -39,6 +41,7 @@ def create_exercise(request):
     return render(request, 'setup/create_exercise.html', context)
 
 
+@login_required
 def edit_exercise(request, exercise_id):
     """
     For editing a specific exercise picked from the exercise list
@@ -62,6 +65,7 @@ def edit_exercise(request, exercise_id):
     return render(request, 'setup/edit_exercise.html', context)
 
 
+@login_required
 def delete_exercise(request, exercise_id):
     """
     For deleting a specific exercise picked from the exercise list
