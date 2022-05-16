@@ -10,9 +10,27 @@ from django.forms import modelformset_factory
 from django.utils.safestring import mark_safe
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from .models import Workout, Collection, Session
 from .forms import WorkoutForm, CollectionForm, SessionForm
 from .utils import Calendar
+
+
+def sign_up(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/home')
+    else:
+        form = UserCreationForm()
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'registration/sign_up.html', context)
 
 
 class CalendarView(generic.ListView):

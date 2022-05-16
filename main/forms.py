@@ -78,7 +78,6 @@ class SessionForm(forms.ModelForm):
                   'workout',
                   'comment'
                   ]
-        # date is a HTML5 input type, format to make date show on fields
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -88,11 +87,6 @@ class SessionForm(forms.ModelForm):
             'date': forms.DateInput(
                 attrs={'type': 'date'},
                 format='%Y-%m-%d'),
-            'workout': forms.SelectMultiple(
-                attrs={
-                    'placeholder': 'Enter Session Name',
-                    }
-                    ),
             'comment': forms.Textarea(
                 attrs={
                     'rows': 4,
