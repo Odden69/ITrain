@@ -3,15 +3,23 @@
 {% block content %}
 
 <div class="jumbotron container p1 p-sm-2 mt-md-3">
-	<div class="jumbotron-head justify-content-center text-center mt-3">
+	<div class="jumbotron-head justify-content-center text-center mt-3 mb-4 mb-md-5">
 		<h1>Welcome to ITrain</h1>
+
 	</div>
 	{% if user.is_authenticated %}
-	<div class="container-md content-list-container p-sm-4 mt-3 mb-3 gy-4 dark-clr">
+	<div class="container-md content-list-container mt-3 mb-3 gy-4 dark-clr">
 		<div class="clearfix text-center">
-			<a class="btn start" href="{% url 'home' %}?{{ prev_month }}"> Previous Month </a>
-			<a class="btn end" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
-			<a class="btn" href="{% url 'create_session' %}"> Create New session </a>
+			<div class="d-block d-md-inline p-md-2 pb-4">
+				<a class="btn" href="{% url 'create_session' %}"> Create New Session </a>
+			</div>
+			<!-- <br class="d-lg-none"> -->
+			<div class="d-block d-md-inline pb-3 pb-sm-0">
+				<a class="btn float-sm-start mb-1 mb-sm-0" href="{% url 'home' %}?{{ prev_month }}"> Prev<span class="d-none d-md-inline">ious</span> Month </a>
+			</div>
+			<div class="d-block d-md-inline">
+				<a class="btn float-sm-end mb-1 mb-sm-0" href="{% url 'home' %}?{{ next_month }}"> Next Month </a>
+			</div>
 		</div>
 		<div class="row content-list row-cols-1">
 			{{ calendar }}

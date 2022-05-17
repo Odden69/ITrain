@@ -112,9 +112,8 @@ footer {
   font-size: small;
 }
 
+/* */
 .jumbotron {
-  /* overflow: auto; */
-  /* background-color: #C7C7BC; */
   background-color: #12110D;
   color: white;
   min-height: 70vh;
@@ -185,6 +184,9 @@ li {
   margin: 0;
   padding: 0;
 }
+
+
+/*   */
 
 .clearfix {
   margin: 15px 5px;
@@ -290,5 +292,25 @@ textarea {
   .grid-col31 {
     padding: 0.5px;
     font-size: smaller;
+  }
+
+}
+
+/* For screen width < 475px */
+@media screen and (max-width: 475px) {
+
+  th.mon,
+  th.tue,
+  th.wed,
+  th.thu,
+  th.fri,
+  th.sat,
+  th.sun {
+    padding:  10px 0;
+    font-size: 13px;
+  }
+
+  .calendar td {
+    height: 75px;
   }
 }
