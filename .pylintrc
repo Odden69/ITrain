@@ -1,0 +1,7 @@
+[MASTER]
+ignore=
+	static,templates,migrations,south_migrations
+load-plugins=
+    pylint_django
+django-settings-module=
+    itrain.settings
