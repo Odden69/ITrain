@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+  {% if user.is_authenticated %}
+  <div class="jumbotron-head justify-content-center text-center mt-3">
+
+    <h2 class="mb-4">Muscle Groups</h2>
+
+    <a href="{% url 'create_muscle_group'%}">
+      <button type="button" class="btn btn-primary">Create New Muscle Group</button>
+    </a>
+  </div>
+  <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
+    <div class="row session-workout content-list row-cols-1">
+      {% for muscle_group in musclegroup_list %}
+      <div class="col-9 grid-col2">
+        <h4>{{ muscle_group.name }}</h4>
+      </div>
+      <div class="col-3 grid-col2">
+        <h4 class="end">
+          <a class="med-dark-clr" href="{% url 'edit_muscle_group' muscle_group.id %}"><i
+              class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;
+          <!-- Button trigger modal -->
+          <!-- Modal code was copied from https://getbootstrap.com/docs/5.0/components/modal/ -->
+          <a class="med-dark-clr" href="#delete-muscle_group-{{ muscle_group.id }}" data-bs-toggle="modal">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </h4>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="delete-muscle_group-{{ muscle_group.id }}" tabindex="-1"
+        aria-labelledby="delete-muscle_group-{{ muscle_group.id }}-title" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="delete-muscle_group-{{ muscle_group.id }}-title">Delete Muscle Group
+                {{ MuscleGoup.name }}
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to proceed?</p>
+              <p><small>The Muscle Group will be delete from all Workouts where it now belongs.</small></p>
+              <p>This action can not be undone!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <a href="{% url 'delete_muscle_group' muscle_group.id %}">
+                <button type="button" class="btn btn-primary">Delete</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+      <div class="col grid-col2 pt-3">
+        <h4>You have no Muscle Groups to show</h4>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="jumbotron-head justify-content-center text-center mt-3">
+    <h1>Muscle Groups</h1>
+    <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
+      <div class="row session-workout content-list row-cols-1 pt-3 pb-2">
+        <h4>You have to be logged in to see this page</h4>
+        <p>Log in <a href="{% url 'login' %}">here</a>!</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

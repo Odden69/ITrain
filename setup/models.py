@@ -45,8 +45,22 @@ class Exercise(models.Model):
     name = models.CharField(max_length=30, unique=True, null=False,
                             blank=False)
     unit = models.ForeignKey(ExerciseUnit, null=False, blank=False,
-                             on_delete=models.SET_DEFAULT, default=get_default_exercise_unit)
+                             on_delete=models.SET_DEFAULT,
+                             default=get_default_exercise_unit)
     description = models.TextField(max_length=200, blank=True)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
+class MuscleGroup(models.Model):
+    """
+    MuscleGroups are used in Exercise Models
+    """
+    name = models.CharField(max_length=30, null=False, blank=False)
 
     class Meta:
         ordering = ['name']

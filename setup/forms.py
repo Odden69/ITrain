@@ -1,9 +1,8 @@
-
 """
 This module contains forms used in the setup app.
 """
 from django import forms
-from .models import Exercise, ExerciseUnit
+from .models import Exercise, ExerciseUnit, MuscleGroup
 
 
 class ExerciseForm(forms.ModelForm):
@@ -29,6 +28,23 @@ class ExerciseForm(forms.ModelForm):
                 attrs={
                     'rows': 4,
                     'placeholder': 'Enter a description of the exercise',
+                    }
+                    ),
+        }
+
+
+class MuscleGroupForm(forms.ModelForm):
+    """
+    Form for editing or creating muscle groups
+    """
+    class Meta:
+        model = MuscleGroup
+        fields = ['name',
+                  ]
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter Muscle Group Name',
                     }
                     ),
         }

@@ -53,12 +53,15 @@ The focus of this app is usability, both on a computer and on a mobile since it 
 
 ##### Workouts
 - As an authorized user I can create new workouts and populate them with exercises so that I can reuse them in sessions.
+- As a user I can delete a workout so that it is entirely deleted from the database.
 - *As an authorized user I can use filters to easily find an exercise when I populate a workout.
 - *As an authorized user I can tag a workout so that I can filter workouts later.
 - *As an authorized user I can edit a workout so that I can update an existing workout.
+- *As an authorized user I can delete an exercise from a workout so that I can control the content of my workouts.
 - *As an authorized user I can change the status of an existing workout to inactive.
 
 ##### Sessions
+- As an authorized user I can view a session from the landing page so that I can easily use the app at the gym.
 - As an authorized user I can add a new session on today's date from the landing page so that I can easily use the app in the gym.
 - As an authorized user I can add a new session on a future date so that I can plan my training.
 - As an authorized user I can choose to populate a session with predefined workouts so that I can reuse the collection of workouts I have made.
@@ -118,6 +121,7 @@ To illustrate the logic of the database I used [diagrams.net](https://www.diagra
 ### Features Left to Implement
 
 ## Technologies Used
+### Libraries
 
 ## Testing
 
@@ -168,6 +172,8 @@ Good luck!
 
 ## Credits
 ### Code
+- [Django documentation](https://docs.djangoproject.com/en/4.0/)
+  If I had used a paper version of the Django documentation, I would have worn out the pages about Models and ModelForms.
 
 ### Other
 
