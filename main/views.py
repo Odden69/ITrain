@@ -117,8 +117,18 @@ def edit_session(request, session_id=None):
     session_form = SessionForm(request.POST or None, instance=instance)
     if request.POST and session_form.is_valid():
         session_form.save()
-        return HttpResponseRedirect(reverse('home'))    
+        return HttpResponseRedirect(reverse('home'))
     return render(request, 'main/edit_session.html', {'form': session_form})
+
+
+@login_required
+def delete_session(request, session_id):
+    """
+    View for deleting a specific workout picked from the workout list
+    """
+    session = get_object_or_404(Session, id=session_id)
+    session.delete()
+    return redirect('home')
 
 
 class WorkoutList(generic.ListView):
@@ -146,6 +156,7 @@ def process_collection_form(form, workout, collection_formset):
             for obj in collection_formset.deleted_objects:
                 obj.delete()
             collection.save()
+
 
 @login_required
 def create_workout(request):
@@ -178,6 +189,7 @@ def create_workout(request):
         'workout_form': workout_form
     }
     return render(request, 'main/create_workout.html', context)
+
 
 @login_required
 def edit_workout(request, workout_id):
@@ -215,6 +227,7 @@ def edit_workout(request, workout_id):
         'formset': collection_formset
     }
     return render(request, 'main/edit_workout.html', context)
+
 
 @login_required
 def delete_workout(request, workout_id):

@@ -7,7 +7,13 @@
     <div class="jumbotron-head justify-content-center text-center mt-3">
         <h1>Session on {{ session.date }}&nbsp;
             <a class="med-light-clr" href="{% url 'edit_session' session.id %}">
-                <i class="fa-solid fa-edit"></i></a>
+                <i class="fa-solid fa-edit"></i>
+            </a>
+            <!-- Button trigger modal -->
+            <!-- Modal code was copied from https://getbootstrap.com/docs/5.0/components/modal/ -->
+            <a class="med-light-clr" href="#delete-session-{{ session.id }}" data-bs-toggle="modal">
+                <i class="fa-solid fa-trash"></i>
+            </a>
         </h1>
         <h2 class="mb-4">{{ session.name }}</h2>
         {% if session.comment != '' %}
@@ -16,6 +22,31 @@
         </div>
         {% endif %}
     </div>
+    <!-- Modal -->
+    <div class="modal fade dark-clr" id="delete-session-{{ session.id }}" tabindex="-1"
+        aria-labelledby="delete-session-{{ session.id }}-title" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete-session-{{ session.id }}-title">Delete Session:
+                        {{ session.name }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to proceed?</p>
+                    <p>This action can not be undone!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'delete_session' session.id %}">
+                        <button type="button" class="btn btn-primary">Delete</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
         {% for workout in session.workout.all %}
         <div class="row session-workout content-list row-cols-1">
@@ -25,12 +56,15 @@
             <div class="col grid-col2">
                 <h4 class="mb-0">{{ workout.name }}
                     {% if workout.description != '' %}
+                    <!-- Button trigger collapse -->
+                    <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
                     <a class="med-dark-clr end me-2" data-bs-toggle="collapse"
                         href="#collapseSessionWorkout{{ workout.id }}" aria-expanded="false"
                         aria-controls="collapseSessionWorkout{{ workout.id }}"><i class="fa-solid fa-info"></i></a>
                     {% endif %}
                 </h4>
             </div>
+            <!-- Collapse -->
             <div class="collapse" id="collapseSessionWorkout{{ workout.id }}">
                 <div class="card card-body">
                     {{ workout.description }}
@@ -43,12 +77,14 @@
             <div class="col grid-col3">
                 <h4>{{ collection.exercise.name }}
                     {% if collection.exercise.description != '' %}
+                    <!-- Button trigger collapse -->
                     <a class="med-dark-clr end me-2" data-bs-toggle="collapse"
                         href="#collapseSessionExercise{{ collection.exercise.id }}" aria-expanded="false"
                         aria-controls="collapseSessionExercise{{ collection.exercise.id }}"><i
                             class="fa-solid fa-info"></i></a>
                     {% endif %}
                 </h4>
+                <!-- Collapse -->
                 <div class="collapse" id="collapseSessionExercise{{ collection.exercise.id }}">
                     <div class="card card-body">
                         {{ workout.description }}

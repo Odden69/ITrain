@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import WorkoutList, create_workout, edit_workout, delete_workout,\
-                   CalendarView, edit_session, session_view, sign_up
+                   CalendarView, edit_session, session_view, sign_up,\
+                   delete_session
 
 
 urlpatterns = [
@@ -15,4 +16,6 @@ urlpatterns = [
     path('create_session/', edit_session, name='create_session'),
     path('edit_session/<int:session_id>/', edit_session, name='edit_session'),
     path('session/<int:session_id>/', session_view, name='session'),
+    path('delete_session/<int:session_id>/', delete_session,
+         name='delete_session'),
 ]
