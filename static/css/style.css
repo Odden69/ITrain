@@ -98,6 +98,17 @@ hr {
   background-color: #12110D;
 }
 
+.dropdown-menu,
+.dropdown-item {
+  background-color: white;
+  color: black;
+}
+
+.dropdown-item.active {
+  background-color: #C7C7BC;
+  color: black;
+}
+
 /* Footer */
 footer {
   background-color: #12110D;

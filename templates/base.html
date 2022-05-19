@@ -31,24 +31,20 @@
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link {% if 'home' in request.path %} active {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'workouts' %}">Workouts</a>
+                            <a class="nav-link {% if 'workout' in request.path %} active {% endif %}" href="{% url 'workouts' %}">Workouts</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle {% if 'settings' in request.path %} active {% endif %}" href="#"
+                                id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Settings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item" href="{% url 'exercises' %}">Exercises</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="{% url 'muscle_groups' %}">Muscle Groups</a></li>
-                                <li><a class="dropdown-item" href="#">Tags</a></li>
+                                <li><a class="dropdown-item {% if 'exercise' in request.path %} active {% endif %}" href="{% url 'exercises' %}">Exercises</a></li>
+                                <li><a class="dropdown-item {% if 'muscle_group' in request.path %} active {% endif %}" href="{% url 'muscle_groups' %}">Muscle Groups</a></li>
                             </ul>
                         </li>
                         {% endif %}
