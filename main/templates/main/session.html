@@ -106,13 +106,19 @@
 
                 <div class="row text-center">
                     <div class="col-4 grid-col32">
+                        {% if collection.exercise.unit.name != '-' %}
                         {{ collection.value }}
+                        {% endif %}
                     </div>
                     <div class="col-4 grid-col32">
                         {{ collection.get_reps_trunc_zero }}
                     </div>
                     <div class="col-4 grid-col32">
+                        {% if collection.sets is None %}
+                            <span>0</span>
+                        {% else %}
                         {{ collection.sets }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

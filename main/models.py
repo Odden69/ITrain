@@ -52,6 +52,8 @@ class Collection(models.Model):
                                        null=True, blank=True)
 
     def get_reps_trunc_zero(self):
+        if self.reps is None:
+            return 0
         if self.reps % 1 == 0:
             self.reps = int(self.reps)
         return self.reps
