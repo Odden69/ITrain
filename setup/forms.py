@@ -11,11 +11,16 @@ class ExerciseForm(forms.ModelForm):
     """
     unit = forms.ModelChoiceField(queryset=ExerciseUnit.objects.all(),
                                   empty_label='Select a Unit, - for none')
+    muscle_group = forms.ModelChoiceField(queryset=MuscleGroup.objects.all(),
+                                          empty_label='Select an optional \
+    muscle group',
+                                          required=False)
 
     class Meta:
         model = Exercise
         fields = ['name',
                   'unit',
+                  'muscle_group',
                   'description',
                   ]
         widgets = {

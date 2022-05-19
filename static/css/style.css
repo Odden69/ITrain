@@ -294,6 +294,10 @@ textarea {
     font-size: smaller;
   }
 
+  .grid-col2.list-icons {
+    border-top: none;
+  }
+
 }
 
 /* For screen width < 475px */

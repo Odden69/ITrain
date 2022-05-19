@@ -13,18 +13,18 @@
   <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
     <div class="row session-workout content-list row-cols-1">
       {% for workout in workout_list %}
-      <div class="col-6 grid-col2">
+      <div class="col col-sm-6 col-md-9 grid-col2">
         <h4>{{ workout.name }}</h4>
       </div>
-      <div class="col-6 grid-col2">
-        <h4 class="end">
-          {% if workout.description != '' %}
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
+          <!-- Button trigger collapse -->
+          <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
           <a class="med-dark-clr" data-bs-toggle="collapse" href="#collapseWorkout{{ workout.id }}"
-            aria-expanded="false" aria-controls="collapseWorkout{{ workout.id }}"><i
-              class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
-          {% endif %}
-          <a class="med-dark-clr" href="{% url 'edit_workout' workout.id %}"><i
-              class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;
+            aria-expanded="false" aria-controls="collapseWorkout{{ workout.id }}">
+            <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
+          <a class="med-dark-clr" href="{% url 'edit_workout' workout.id %}">
+            <i class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;
           <!-- Button trigger modal -->
           <!-- Modal code was copied from https://getbootstrap.com/docs/5.0/components/modal/ -->
           <a class="med-dark-clr" href="#delete-workout-{{ workout.id }}" data-bs-toggle="modal">
@@ -32,9 +32,16 @@
           </a>
         </h4>
       </div>
+      <!-- Collapse -->
       <div class="collapse" id="collapseWorkout{{ workout.id }}">
         <div class="card card-body">
-          {{ workout.description }}
+          {% if workout.description != '' %}
+          {{ workout.description }}<hr>
+          {% endif %}
+          <span>Exercises:</span>
+          {% for collection in workout.collections.all %}
+          {{ collection.exercise.name }}{% if forloop.last is False %},{% endif %}
+          {% endfor %}
         </div>
       </div>
 
