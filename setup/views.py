@@ -4,6 +4,7 @@ This module specifies the views used in the setup app.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Exercise, MuscleGroup
 from .forms import ExerciseForm, MuscleGroupForm
@@ -23,9 +24,11 @@ def create_exercise(request):
     """
     For creating a new exercise
     """
+    user = get_object_or_404(User, username=request.user)
     if request.method == 'POST':
         exercise_form = ExerciseForm(request.POST)
         if exercise_form.is_valid():
+            exercise_form.instance.created_by = user
             exercise_form.save()
             exercise = exercise_form.save()
             messages.add_message(
@@ -89,9 +92,11 @@ def create_muscle_group(request):
     """
     For creating a new muscle group
     """
+    user = get_object_or_404(User, username=request.user)
     if request.method == 'POST':
         muscle_group_form = MuscleGroupForm(request.POST)
         if muscle_group_form.is_valid():
+            muscle_group_form.instance.created_by = user
             muscle_group = muscle_group_form.save()
             messages.add_message(
                 request,

@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Workout, Collection, Session
 from .forms import WorkoutForm, CollectionForm, SessionForm
@@ -116,6 +117,9 @@ def edit_session(request, session_id=None):
 
     session_form = SessionForm(request.POST or None, instance=instance)
     if request.POST and session_form.is_valid():
+        if not session_id:
+            user = get_object_or_404(User, username=request.user)
+            session_form.instance.created_by = user
         session_form.save()
         return HttpResponseRedirect(reverse('home'))
     return render(request, 'main/edit_session.html', {'form': session_form})

@@ -2,6 +2,7 @@
 This module specifies the models which belong to the main app.
 """
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.urls import reverse
 from setup.models import RepsUnit, Exercise
@@ -15,6 +16,7 @@ class Workout(models.Model):
                             blank=False,
                             error_messages={'unique':
                                             'The Workout name is not unique'})
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(max_length=200, blank=True)
 
     class Meta:
@@ -64,6 +66,7 @@ class Session(models.Model):
     Workouts can be created by authorized users.
     """
     name = models.CharField(max_length=80, null=False, blank=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(unique=True)
     workout = models.ManyToManyField(Workout, blank=True,
                                      related_name='workouts')

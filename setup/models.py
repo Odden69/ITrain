@@ -3,6 +3,7 @@ This module specifies the models which belong to the setup app.
 These models are used as building blocks in the main app.
 """
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class ExerciseUnit(models.Model):
@@ -36,6 +37,7 @@ class MuscleGroup(models.Model):
     MuscleGroups are used in Exercise Models
     """
     name = models.CharField(max_length=30, null=False, blank=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['name']
@@ -56,6 +58,7 @@ class Exercise(models.Model):
     Exercises can be created by authorized users. Are used in Workouts.
     """
     name = models.CharField(max_length=30, null=False, blank=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     unit = models.ForeignKey(ExerciseUnit, null=False, blank=False,
                              on_delete=models.SET_DEFAULT,
                              default=get_default_exercise_unit)
