@@ -62,8 +62,8 @@ class Exercise(models.Model):
     unit = models.ForeignKey(ExerciseUnit, null=False, blank=False,
                              on_delete=models.SET_DEFAULT,
                              default=get_default_exercise_unit)
-    muscle_group = models.ForeignKey(MuscleGroup, blank=True, null=True,
-                                     on_delete=models.SET_NULL)
+    muscle_group = models.ManyToManyField(MuscleGroup, blank=True,
+                                          related_name='muscle_groups')
     description = models.TextField(max_length=200, blank=True)
 
     class Meta:
