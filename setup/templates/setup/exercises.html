@@ -22,16 +22,17 @@
           <!-- Button trigger collapse -->
           <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
           <a class="med-dark-clr" data-bs-toggle="collapse" href="#collapseExercise{{ exercise.id }}"
-            aria-expanded="false" aria-controls="collapseExercise{{ exercise.id }}">
+            aria-expanded="false" aria-controls="collapseExercise{{ exercise.id }}" aria-label="Exercise Info">
             <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
           {% endif %}
           {% if user.username == exercise.created_by.username %}
           <!-- <td>{{ exercise.unit }}</td> -->
-          <a class="med-dark-clr" href="{% url 'edit_exercise' exercise.id %}">
+          <a class="med-dark-clr" href="{% url 'edit_exercise' exercise.id %}" aria-label="Edit Exercise">
             <i class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;
           <!-- Button trigger modal -->
           <!-- Modal code was copied from https://getbootstrap.com/docs/5.0/components/modal/ -->
-          <a class="med-dark-clr" href="#delete-exercise-{{ exercise.id }}" data-bs-toggle="modal">
+          <a class="med-dark-clr" href="#delete-exercise-{{ exercise.id }}" data-bs-toggle="modal" 
+            aria-label="Delete Exercise">
             <i class="fa-solid fa-trash"></i>
           </a>
           {% endif %}
@@ -43,10 +44,17 @@
           {% if exercise.unit.name == '-' %}
           {% else %}
           <p>Unit: {{ exercise.unit.name }}</p>
+          <hr>
           {% endif %}
           {% if exercise.muscle_group is None %}
           {% else %}
-          <p>Muscle group: {{ exercise.muscle_group.name }}</p>
+          <span>Muscle groups:</span>
+          <ul>
+            {% for muscle_group in exercise.muscle_group.all %}
+            <li>{{ muscle_group.name }}</li>
+            {% endfor %}
+          </ul>
+          <hr>
           {% endif %}
           {{ exercise.description }}
         </div>
@@ -69,9 +77,9 @@
               <p>This action can not be undone!</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
               <a href="{% url 'delete_exercise' exercise.id %}">
-                <button type="button" class="btn btn-primary">Delete</button>
+                <button type="button" class="btn btn-primary" aria-label="Delete Exercise">Delete</button>
               </a>
             </div>
           </div>
