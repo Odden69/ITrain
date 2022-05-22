@@ -80,6 +80,20 @@ a.med-light-clr:hover {
   padding: 1rem 0.3rem;
 }
 
+.card ul {
+  margin-bottom: 0;
+}
+
+.card li {
+  list-style-type: circle;
+  margin-left: 12px;
+}
+
+
+.card p {
+  margin-bottom: 0;
+}
+
 section {
   color: black;
   font-family: 'Montserrat', sans-serif;
@@ -127,7 +141,8 @@ footer {
 .jumbotron {
   background-color: #12110D;
   color: white;
-  min-height: 70vh;
+  height: 72vh;
+  overflow: auto;
 }
 
 .content-list-container {

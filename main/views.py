@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from calendar import monthrange
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
+from django.db.models import Q
 from django.contrib import messages
 from django.forms import modelformset_factory
 from django.utils.safestring import mark_safe
@@ -36,7 +37,7 @@ def sign_up(request):
 
 class CalendarView(generic.ListView):
     """
-    Renders a calendar with planned sessions in it
+    Renders a calendar with the users planned sessions in it
     This view, and its connected methods, were mainly copied from
     https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html
     """
@@ -52,6 +53,12 @@ class CalendarView(generic.ListView):
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter = self.request.user.username
+        queryset = queryset.filter(created_by__username=filter)
+        return queryset
 
 
 def get_date(req_day):
@@ -143,6 +150,12 @@ class WorkoutList(generic.ListView):
     template_name = 'main/workouts.html'
     paginate_by = 50
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter = [self.request.user.username, "itrainadmin"]
+        queryset = queryset.filter(created_by__username__in=filter)
+        return queryset
+
 
 def process_collection_form(form, workout, collection_formset):
     """
@@ -167,18 +180,26 @@ def create_workout(request):
     """
     View for creating a new workout
     """
+    user = request.user
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
                                              exclude=('workout',),
-                                             can_delete=True)
+                                             can_delete=True
+                                             )
     workout_form = WorkoutForm()
-    collection_formset = CollectionFormSet(queryset=Collection.objects.none())
+    queryset = Collection.objects.none()
+    collection_formset = CollectionFormSet(
+        queryset=queryset, form_kwargs={'user': user})
     if request.method == 'POST':
         workout_form = WorkoutForm(request.POST)
-        collection_formset = CollectionFormSet(request.POST)
+        collection_formset = CollectionFormSet(
+            request.POST, form_kwargs={'user': user})
         workout_name = request.POST.get('name')
-        taken = Workout.objects.filter(name=workout_name).exists()
-        if not taken:
+        taken_filter = Q(name=workout_name) & \
+            Q(created_by__username=user.username)
+        taken = Workout.objects.filter(taken_filter).exists()
+        if not taken:   # The workout name is unique for the user
             if workout_form.is_valid() and collection_formset.is_valid():
+                workout_form.instance.created_by = user
                 workout = workout_form.save()
                 for form in collection_formset:
                     process_collection_form(form, workout, collection_formset)
@@ -188,6 +209,12 @@ def create_workout(request):
                     f'{workout.name} was successfully created'
                 )
                 return redirect('workouts')
+        else:
+            messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f'The name: {workout.name} does already exist'
+                )
     context = {
         'formset': collection_formset,
         'workout_form': workout_form
@@ -200,19 +227,25 @@ def edit_workout(request, workout_id):
     """
     View for editing a new workout picked from the workout list
     """
+    user = request.user
     workout = get_object_or_404(Workout, id=workout_id)
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
                                              exclude=('workout',), extra=0,
                                              can_delete=True)
     queryset = Collection.objects.filter(workout=workout)
-    collection_formset = CollectionFormSet(queryset=queryset)
+    collection_formset = CollectionFormSet(
+        queryset=queryset, form_kwargs={'user': user})
     workout_form = WorkoutForm(instance=workout)
     workout_initial_name = workout.name
     if request.method == 'POST':
         workout_form = WorkoutForm(request.POST, instance=workout)
-        collection_formset = CollectionFormSet(request.POST)
+        collection_formset = CollectionFormSet(
+            request.POST, form_kwargs={'user': user})
         workout_name = request.POST.get('name')
-        taken = Workout.objects.filter(name=workout_name).exists()
+        taken_filter = Q(name=workout_name) & \
+            Q(created_by__username=user.username)
+        taken = Workout.objects.filter(taken_filter).exists()
+        # The workout name is unique for the user
         if not taken or workout_name == workout_initial_name:
             if workout_form.is_valid() and collection_formset.is_valid():
                 workout = workout_form.save()
@@ -224,6 +257,12 @@ def edit_workout(request, workout_id):
                     f'{workout.name} was successfully edited'
                 )
                 return redirect('workouts')
+        else:
+            messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f'The name: {workout.name} does already exist'
+                )
     context = {
         'form': collection_formset,
         'workout_form': workout_form,

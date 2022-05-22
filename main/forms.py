@@ -32,12 +32,19 @@ class WorkoutForm(forms.ModelForm):
 
 class CollectionForm(forms.ModelForm):
     """
-    Form for specifing an exercise's connection to a specific workout
+    Form for defining an exercise's connection to a specific workout
     """
     exercise = forms.ModelChoiceField(queryset=Exercise.objects.all(),
                                       empty_label='Select an Exercise')
     reps_unit = forms.ModelChoiceField(queryset=RepsUnit.objects.all(),
                                        empty_label='Select a Reps unit')
+
+    def __init__(self, *args, user, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+        filter = [self.user.username, "itrainadmin"]
+        queryset = Exercise.objects.filter(created_by__username__in=filter)
+        self.fields['exercise'].queryset = queryset
 
     class Meta:
         model = Collection
@@ -48,7 +55,7 @@ class CollectionForm(forms.ModelForm):
                   'sets'
                   ]
         widgets = {'exercise': forms.Select(attrs={
-                        'class': 'form-control',
+                       'class': 'form-control'
                    }),
                    'value': forms.NumberInput(attrs={
                        'placeholder': 'If the exercise has a unit, like kg,\
@@ -61,6 +68,23 @@ class CollectionForm(forms.ModelForm):
                        'placeholder': 'Enter number of sets'
                    })
                    }
+
+
+class BaseCollectionFormSet(forms.BaseModelFormSet):
+    """
+    To filter Exercises in the formsets depending on the user
+    """
+    def __init__(self, user, *args, **kvargs):
+        self.user = user
+        super().__init__(*args, **kvargs)
+        filter = [self.user.username, "itrainadmin"]
+        queryset = Exercise.objects.filter(created_by__username__in=filter)
+        self.fields['exercise'].queryset = queryset
+
+    exercise = forms.ModelMultipleChoiceField(
+            queryset=Exercise.objects.all(),
+            label='Muscle Group - select many with CTRL',
+            required=False)
 
 
 class SessionForm(forms.ModelForm):
