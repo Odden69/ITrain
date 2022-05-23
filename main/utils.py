@@ -39,9 +39,10 @@ class Calendar(HTMLCalendar):
             week += self.formatday(d, sessions)
         return f'<tr> {week} </tr>'
 
-    def formatmonth(self, withyear=True):
+    def formatmonth(self, user, withyear=True):
         sessions = Session.objects.filter(date__year=self.year,
-                                          date__month=self.month)
+                                          date__month=self.month,
+                                          created_by__username=user.username)
         month_name = self.formatmonthname(self.year, self.month,
                                           withyear=withyear)
         cal = '<table border="0" cellpadding="0" cellspacing="0" \

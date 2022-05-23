@@ -67,7 +67,7 @@ class Session(models.Model):
     """
     name = models.CharField(max_length=80, null=False, blank=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(unique=True)
+    date = models.DateField()
     workout = models.ManyToManyField(Workout, blank=True,
                                      related_name='workouts')
     comment = models.TextField(max_length=200, blank=True)

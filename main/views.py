@@ -13,7 +13,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Workout, Collection, Session
 from .forms import WorkoutForm, CollectionForm, SessionForm
@@ -57,18 +56,13 @@ class CalendarView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
+        user = self.request.user
         cal = Calendar(d.year, d.month)
-        html_cal = cal.formatmonth(withyear=True)
+        html_cal = cal.formatmonth(user, withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        filter = self.request.user.username
-        queryset = queryset.filter(created_by__username=filter)
-        return queryset
 
 
 def get_date(req_day):
@@ -113,6 +107,14 @@ def session_view(request, session_id):
     A view for showing an individual session
     """
     session = get_object_or_404(Session, id=session_id)
+    user = request.user
+    if user.username != session.created_by.username:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "You don't have permissions to view that session"
+        )
+        return redirect('home')
     context = {
         'session': session,
     }
@@ -127,19 +129,31 @@ def edit_session(request, session_id=None):
     https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html
     """
     instance = Session()
+    user = request.user
     if session_id:
         instance = get_object_or_404(Session, id=session_id)
+        if user.username != instance.created_by.username:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                f"You don't have permissions to edit {instance.name}"
+            )
+            return redirect('home')
     else:
         instance = Session()
-
     session_form = SessionForm(request.POST or None, instance=instance)
     if request.POST and session_form.is_valid():
         if not session_id:
-            user = get_object_or_404(User, username=request.user)
             session_form.instance.created_by = user
         session_form.save()
         return HttpResponseRedirect(reverse('home'))
-    return render(request, 'main/edit_session.html', {'form': session_form})
+    filter = [request.user.username, "itrainadmin"]
+    session_form.fields['workout'].queryset = \
+        Workout.objects.filter(created_by__username__in=filter)
+    context = {
+        'form': session_form
+    }
+    return render(request, 'main/edit_session.html', context)
 
 
 @login_required
@@ -148,6 +162,14 @@ def delete_session(request, session_id):
     View for deleting a specific workout picked from the workout list
     """
     session = get_object_or_404(Session, id=session_id)
+    user = request.user
+    if user.username != session.created_by.username:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            f"You don't have permissions to edit {session.name}"
+        )
+        return redirect('home')
     session.delete()
     return redirect('home')
 
@@ -221,10 +243,10 @@ def create_workout(request):
                 return redirect('workouts')
         else:
             messages.add_message(
-                    request,
-                    messages.ERROR,
-                    f'The name: {workout.name} does already exist'
-                )
+                request,
+                messages.ERROR,
+                f'The name: {workout.name} does already exist'
+            )
     context = {
         'formset': collection_formset,
         'workout_form': workout_form
@@ -239,6 +261,14 @@ def edit_workout(request, workout_id):
     """
     user = request.user
     workout = get_object_or_404(Workout, id=workout_id)
+    # A user has no right to edit any other users workouts
+    if user.username != workout.created_by.username:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            f"You don't have permissions to edit {workout.name}"
+        )
+        return redirect('exercises')
     CollectionFormSet = modelformset_factory(Collection, form=CollectionForm,
                                              exclude=('workout',), extra=0,
                                              can_delete=True)
@@ -269,10 +299,10 @@ def edit_workout(request, workout_id):
                 return redirect('workouts')
         else:
             messages.add_message(
-                    request,
-                    messages.ERROR,
-                    f'The name: {workout.name} does already exist'
-                )
+                request,
+                messages.ERROR,
+                f'The name: {workout.name} does already exist'
+            )
     context = {
         'form': collection_formset,
         'workout_form': workout_form,
