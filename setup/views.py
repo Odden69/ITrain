@@ -58,6 +58,7 @@ def edit_exercise(request, exercise_id):
     """
     exercise = get_object_or_404(Exercise, id=exercise_id)
     user = request.user
+    # A user has no right to edit any other users exercises
     if user.username != exercise.created_by.username:
         messages.add_message(
             request,
@@ -93,6 +94,14 @@ def delete_exercise(request, exercise_id):
     For deleting a specific exercise picked from the exercise list
     """
     exercise = get_object_or_404(Exercise, id=exercise_id)
+    user = request.user
+    if user.username != exercise.created_by.username:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            f"You don't have permissions to delete {exercise.name}"
+        )
+        return redirect('exercises')
     exercise.delete()
     return redirect('exercises')
 
