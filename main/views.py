@@ -151,6 +151,7 @@ def edit_session(request, session_id=None):
     session_form.fields['workout'].queryset = \
         Workout.objects.filter(created_by__username__in=filter)
     context = {
+        'session': instance,
         'form': session_form
     }
     return render(request, 'main/edit_session.html', context)
