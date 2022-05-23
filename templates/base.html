@@ -27,38 +27,47 @@
                     aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'home' %}">ITrain</a>
+                <a class="navbar-brand me-0" href="{% url 'home' %}" aria-label="Go to Home">
+                    <img class="icon" src="{% static 'images/nav_icon.png' %}" alt="Itrain Icon">
+                </a>
                 <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {% if 'home' in request.path %} active {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
+                            <a class="nav-link {% if 'home' in request.path %} active {% endif %}"
+                                href="{% url 'home' %}" aria-label="Go to Home">Home</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link {% if 'workout' in request.path %} active {% endif %}" href="{% url 'workouts' %}">Workouts</a>
+                            <a class="nav-link {% if 'workout' in request.path %} active {% endif %}"
+                                href="{% url 'workouts' %}" aria-label="Go to Workouts">Workouts</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle {% if 'settings' in request.path %} active {% endif %}" href="#"
-                                id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle {% if 'settings' in request.path %} active {% endif %}"
+                                href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-label="Open settings">
                                 Settings
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                <li><a class="dropdown-item {% if 'exercise' in request.path %} active {% endif %}" href="{% url 'exercises' %}">Exercises</a></li>
-                                <li><a class="dropdown-item {% if 'muscle_group' in request.path %} active {% endif %}" href="{% url 'muscle_groups' %}">Muscle Groups</a></li>
+                                <li><a class="dropdown-item {% if 'exercise' in request.path %} active {% endif %}"
+                                        href="{% url 'exercises' %}" aria-label="Go to Exercises">Exercises</a></li>
+                                <li><a class="dropdown-item {% if 'muscle_group' in request.path %} active {% endif %}"
+                                        href="{% url 'muscle_groups' %}" aria-label="Go to Muscle Groups">Muscle
+                                        Groups</a></li>
                             </ul>
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="{% url 'about' %}" aria-label="Go to About">About</a>
                         </li>
                     </ul>
                     {% if user.is_authenticated %}
                     <span class="navbar-text">
-                        Logged in as {{ user.username }}&nbsp;|&nbsp;<a href="{% url 'logout' %}">Log out</a>
+                        Logged in as {{ user.username }}&nbsp;|&nbsp;<a href="{% url 'logout' %}"
+                            aria-label="Go to Log out">Log out</a>
                     </span>
                     {% else %}
                     <span class="navbar-text">
-                        <a href="{% url 'login' %}">Log in / Sign up</a>
+                        <a href="{% url 'login' %}" aria-label="Go to Sign up">Log in / Sign up</a>
                     </span>
                     {% endif %}
                 </div>
