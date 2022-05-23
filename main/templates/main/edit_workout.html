@@ -13,7 +13,7 @@ https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-
         <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
             <div class="clearfix text-center">
                 <a href="{% url 'workouts' %}">
-                    <button class="btn float-sm-start ms-2 mb-2">Cancel</button>
+                    <button class="btn float-sm-start ms-2 mb-2" aria-label="Cancel">Cancel</button>
                 </a>
             </div>
             <div class="row session-workout content-list row-cols-1">
@@ -22,8 +22,8 @@ https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-
                     {{ workout_form | crispy }}
                     {{ formset.management_form }}
                     <div class="clearfix pt-1 text-center">
-                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 add_more" value="Add Exercise">
-                        <input type="submit" class="btn float-sm-end" value="Save Workout">
+                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 add_more" value="Add Exercise" aria-label="Add Exercise">
+                        <input type="submit" class="btn float-sm-end" value="Save Workout" aria-label="Save Workout">
                     </div>
                     <div id="form_set">
                         {% for form in formset.forms %}
@@ -41,8 +41,8 @@ https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-
                     </div>
                     {% if formset.total_form_count > 1 %}
                     <div class="clearfix pt-3 text-center">
-                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 add_more" value="Add Exercise">
-                        <input type="submit" class="btn float-sm-end" value="Save Workout">
+                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 add_more" value="Add Exercise" aria-label="Add Exercise">
+                        <input type="submit" class="btn float-sm-end" value="Save Workout" aria-label="Save Workout">
                     </div>
                     {% endif %}
                 </form>

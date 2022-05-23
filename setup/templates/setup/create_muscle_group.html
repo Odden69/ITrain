@@ -9,7 +9,7 @@
         <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
             <div class="clearfix text-center">
                 <a href="{% url 'muscle_groups' %}">
-                    <button class="btn float-sm-start ms-2 mb-2">Cancel</button>
+                    <button class="btn float-sm-start ms-2 mb-2" aria-label="Cancel">Cancel</button>
                 </a>
             </div>
             <div class="row session-workout content-list row-cols-1">
@@ -17,7 +17,7 @@
                     {% csrf_token %}
                     {{ form | crispy }}
                     <div class="text-center pt-3 pb-3">
-                        <input type="submit" class="btn" value="Save Muscle Group">
+                        <input type="submit" class="btn" value="Save Muscle Group" aria-label="Save Muscle Group">
                     </div>
                 </form>
             </div>
