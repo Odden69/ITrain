@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   background: url('../images/dumbbell.jpg');
+  background-position: left bottom;
   overflow-x: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -317,6 +318,7 @@ textarea {
 
 /* For screen width < 768px */
 @media screen and (max-width: 768px) {
+
 
   .content-list-container {
     width: 90%;
