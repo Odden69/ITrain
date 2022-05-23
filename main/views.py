@@ -20,7 +20,17 @@ from .forms import WorkoutForm, CollectionForm, SessionForm
 from .utils import Calendar
 
 
+def about(request):
+    """
+    Renders the about page
+    """
+    return render(request, 'main/about.html')
+
+
 def sign_up(request):
+    """
+    Renders the sign up page
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():

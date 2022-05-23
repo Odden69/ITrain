@@ -56,9 +56,14 @@
                                         Groups</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'help' in request.path %} active {% endif %}"
+                                href="#" aria-label="Go to Workouts">Help</a>
+                        </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}" aria-label="Go to About">About</a>
+                            <a class="nav-link {% if 'about' in request.path %} active {% endif %}"
+                            href="{% url 'about' %}" aria-label="Go to About">About</a>
                         </li>
                     </ul>
                     {% if user.is_authenticated %}

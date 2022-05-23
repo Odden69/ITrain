@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background: url('../images/dumbell.jpg');
+  background: url('../images/dumbbell.jpg');
   overflow-x: hidden;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -121,6 +121,10 @@ hr {
 .dropdown-item.active {
   background-color: #C7C7BC;
   color: black;
+}
+
+.icon {
+  height: 35px;
 }
 
 /* Footer */
@@ -290,6 +294,25 @@ textarea {
 .grid-col32:last-of-type,
 .grid-col31:last-of-type {
   border-right: none;
+}
+
+.jumbotron.about-jumbo {
+  height: auto;
+}
+
+.about-jumbo .container-md {
+  max-width: 944px;
+}
+
+.about-card {
+  background-color: #C7C7BC;
+}
+
+.about-image {
+  width: auto;
+  max-height: 300px;
+  display: block;
+  margin: 0 auto;
 }
 
 /* For screen width < 768px */

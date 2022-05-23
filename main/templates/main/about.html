@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron about-jumbo container p1 p-sm-2 mt-md-3">
+    <div class="container-md p-sm-4 mb-3 gy-4 dark-clr text-center">
+        <h2 class="pt-2 light-clr">All the benefits of the Itrain app</h2>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>Do the planning at home</h2>
+                    <p>Use a computer to set up your app and plan your workouts more easily</p>
+                </div>
+            </div>
+            <div class="about-card me-md-3 p-1 px-1 text-center">
+                <div class="overflow-hidden">
+                    <img class="about-image" src="{% static 'images/computer.jpg' %}"
+                        alt="Closeup of hands working on a computer">
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="d-md-none d-block about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>Use the app at the gym</h2>
+                    <p>Have easy access to all your workouts and planned sessions.</p>
+                </div>
+            </div>
+            <div class="about-card me-md-3 p-1 px-1 text-center">
+                <div class="overflow-hidden">
+                    <img class="about-image" src="{% static 'images/phone.jpg' %}"
+                        alt="Lady checking her phone on a treadmill">
+                </div>
+            </div>
+            <div class="d-md-block d-none about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>Use the app at the gym</h2>
+                    <p>Have easy access to all your workouts and planned sessions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>View past and future sessions in the calendar.</h2>
+                    <p>Use the calendar to plan new sessions and to check out old ones.
+                        Make comments to your current session for later references.</p>
+                </div>
+            </div>
+            <div class="about-card me-md-3 p-1 px-1 text-center">
+                <div class="overflow-hidden">
+                    <img class="about-image" src="{% static 'images/home_page.jpg' %}" alt="Screenshot of app calendar">
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="d-md-none d-block about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>Customize all your workouts.</h2>
+                    <p>To make the app truly yours, build workouts from your own exercises and tag them with your
+                        personal muscle groups.</p>
+                </div>
+            </div>
+            <div class="about-card me-md-3 p-1 px-1 text-center">
+                <div class="overflow-hidden">
+                    <img class="about-image" src="{% static 'images/exercise.jpg' %}"
+                        alt="Screenshot of creating an Exercise">
+                </div>
+            </div>
+            <div class="d-md-block d-none about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>Customize all your workouts.</h2>
+                    <p>To make the app truly yours, build workouts from your own exercises and tag them with your
+                        personal muscle groups.</p>
+                </div>
+            </div>
+        </div>
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+            <div class="about-card me-md-3 pt-3 px-3 pt-md-4 px-md-5 text-center overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2>When you're at the gym.</h2>
+                    <p>Just select todays session and scroll through all the workouts. Then go for it!</p>
+                </div>
+            </div>
+            <div class="about-card me-md-3 p-1 px-1 text-center">
+                <div class="overflow-hidden">
+                    <img class="about-image" src="{% static 'images/session_phone.jpg' %}" alt="Screenshot of session on a phone">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
