@@ -108,6 +108,12 @@ hr {
   border-top: solid 2px #6F310A;
 }
 
+.message-area {
+  position: absolute;
+  top: 65px;
+  left: 25%;
+}
+
 /* Navbar */
 .navbar {
   background-color: #12110D;

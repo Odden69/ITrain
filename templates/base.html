@@ -19,7 +19,7 @@
     <title>ITrain</title>
 </head>
 
-<body class="flex">
+<body class="flex position-relative">
     <header class="flex primary-header">
         <!-- Navigation bar -->
         <nav class="navbar navbar-expand-lg navbar-dark">
@@ -80,12 +80,20 @@
             </div>
         </nav>
     </header>
-    {% for message in messages %}
-    <div id="msg">
-        {{ message | safe}}
+    <div class="container message-area">
+        <div class="row">
+            <div class="col-md-8">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg"
+                role="alert">
+                {{ message | safe }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-    {% endfor %}
 
     <section class="mt-sm-5 mb-sm-5">
         {% block content %}

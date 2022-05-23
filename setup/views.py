@@ -15,7 +15,6 @@ class ExerciseList(generic.ListView):
     """
     model = Exercise
     template_name = 'setup/exercises.html'
-    paginate_by = 50
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -103,6 +102,11 @@ def delete_exercise(request, exercise_id):
         )
         return redirect('exercises')
     exercise.delete()
+    messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f'The exercise {exercise.name} was successfully deleted'
+                )
     return redirect('exercises')
 
 
@@ -112,7 +116,6 @@ class MuscleGroupList(generic.ListView):
     """
     model = MuscleGroup
     template_name = 'setup/muscle_groups.html'
-    paginate_by = 50
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -193,4 +196,10 @@ def delete_muscle_group(request, muscle_group_id):
         )
         return redirect('muscle_groups')
     muscle_group.delete()
+    messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    (f'The muscle group {muscle_group.name} was \
+                       successfully deleted')
+                )
     return redirect('muscle_groups')

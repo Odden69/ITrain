@@ -12,10 +12,7 @@ class Workout(models.Model):
     """
     Workouts can be created by authorized users. Are used in Sessions.
     """
-    name = models.CharField(max_length=30, unique=True, null=False,
-                            blank=False,
-                            error_messages={'unique':
-                                            'The Workout name is not unique'})
+    name = models.CharField(max_length=30, null=False, blank=False,)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(max_length=200, blank=True)
 

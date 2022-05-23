@@ -146,6 +146,11 @@ def edit_session(request, session_id=None):
         if not session_id:
             session_form.instance.created_by = user
         session_form.save()
+        messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    'The session was successfully saved'
+                )
         return HttpResponseRedirect(reverse('home'))
     filter = [request.user.username, "itrainadmin"]
     session_form.fields['workout'].queryset = \
@@ -172,6 +177,11 @@ def delete_session(request, session_id):
         )
         return redirect('home')
     session.delete()
+    messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f'The session {session.name} was successfully deleted'
+                )
     return redirect('home')
 
 
@@ -246,7 +256,7 @@ def create_workout(request):
             messages.add_message(
                 request,
                 messages.ERROR,
-                f'The name: {workout.name} does already exist'
+                'The workout name already exists'
             )
     context = {
         'formset': collection_formset,
@@ -295,14 +305,14 @@ def edit_workout(request, workout_id):
                 messages.add_message(
                     request,
                     messages.SUCCESS,
-                    f'{workout.name} was successfully edited'
+                    f'{workout.name} was successfully saved'
                 )
                 return redirect('workouts')
         else:
             messages.add_message(
                 request,
                 messages.ERROR,
-                f'The name: {workout.name} does already exist'
+                'The workout name already exists'
             )
     context = {
         'form': collection_formset,
@@ -320,4 +330,9 @@ def delete_workout(request, workout_id):
     """
     workout = get_object_or_404(Workout, id=workout_id)
     workout.delete()
+    messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f'The workout {workout.name} was successfully deleted'
+                )
     return redirect('workouts')
