@@ -11,23 +11,15 @@ class ExerciseForm(forms.ModelForm):
     """
     unit = forms.ModelChoiceField(queryset=ExerciseUnit.objects.all(),
                                   empty_label='Select a Unit, - for none')
-
-    def __init__(self, *args, user, **kwargs):
-        self.user = user
-        super().__init__(*args, **kwargs)
-        filter = [self.user.username, "itrainadmin"]
-        queryset = MuscleGroup.objects.filter(created_by__username__in=filter)
-        self.fields['muscle_group'] = \
-            forms.ModelMultipleChoiceField(queryset=queryset,
-                                           label='Muscle Group - \
-                                               select many with CTRL',
-                                           required=False)
+    muscle_group = forms.ModelMultipleChoiceField(
+        queryset=MuscleGroup.objects.all(), required=False)
 
     class Meta:
         model = Exercise
         fields = ['name',
-                  'description',
                   'unit',
+                  'muscle_group',
+                  'description',
                   ]
         widgets = {
             'name': forms.TextInput(

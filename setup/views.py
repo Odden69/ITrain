@@ -31,7 +31,7 @@ def create_exercise(request):
     """
     user = request.user
     if request.method == 'POST':
-        exercise_form = ExerciseForm(request.POST, user=user)
+        exercise_form = ExerciseForm(request.POST)
         if exercise_form.is_valid():
             exercise_form.instance.created_by = user
             exercise = exercise_form.save()
@@ -41,7 +41,10 @@ def create_exercise(request):
                 f'{exercise.name} was successfully created'
             )
             return redirect('exercises')
-    exercise_form = ExerciseForm(user=user)
+    exercise_form = ExerciseForm()
+    filter = [request.user.username, "itrainadmin"]
+    exercise_form.fields['muscle_group'].queryset = \
+        MuscleGroup.objects.filter(created_by__username__in=filter)
     context = {
         'form': exercise_form
     }
@@ -64,7 +67,7 @@ def edit_exercise(request, exercise_id):
         return redirect('exercises')
     if request.method == 'POST':
         exercise_form = ExerciseForm(
-            request.POST, instance=exercise, user=user)
+            request.POST, instance=exercise)
         if exercise_form.is_valid():
             exercise = exercise_form.save()
             messages.add_message(
@@ -73,7 +76,10 @@ def edit_exercise(request, exercise_id):
                 f'{exercise.name} was successfully saved'
             )
             return redirect('exercises')
-    exercise_form = ExerciseForm(instance=exercise, user=user)
+    exercise_form = ExerciseForm(instance=exercise)
+    filter = [request.user.username, "itrainadmin"]
+    exercise_form.fields['muscle_group'].queryset = \
+        MuscleGroup.objects.filter(created_by__username__in=filter)
     context = {
         'form': exercise_form,
         'exercise': exercise,
@@ -155,7 +161,7 @@ def edit_muscle_group(request, muscle_group_id):
                 f'{muscle_group.name} was successfully saved'
             )
             return redirect('muscle_groups')
-    muscle_group_form = ExerciseForm(instance=muscle_group)
+    muscle_group_form = MuscleGroupForm(instance=muscle_group)
     context = {
         'form': muscle_group_form,
         'muscle_group': muscle_group,
