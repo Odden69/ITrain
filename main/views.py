@@ -26,6 +26,13 @@ def about(request):
     return render(request, 'main/about.html')
 
 
+def help(request):
+    """
+    Renders the about page
+    """
+    return render(request, 'main/help.html')
+
+
 def sign_up(request):
     """
     Renders the sign up page

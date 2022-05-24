@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="jumbotron container p1 p-sm-2 mt-md-3">
+  {% if user.is_authenticated %}
+  <div class="row jumbotron-head justify-content-center text-center mt-3">
+    <div class="col col-md-8">
+      <h1 class="mb-4">This is how you use ITrain</h1>
+      <p>To use ITrain efficiently you need to build your own stock of Exercises and Workouts.<br>
+        Start by adding the Exercises you like best, like lunges and squats for instance,
+        and put them together in Workouts. Then you'll soon figure out how ITrain works.</p>
+      <p>Check out the instructions below for more detailed information</p>
+    </div>
+  </div>
+  <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
+    <div class="row session-workout content-list row-cols-1">
+      <div class="col col-sm-6 col-md-9 grid-col2">
+        <h4>Exercises</h4>
+      </div>
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
+          <!-- Button trigger collapse -->
+          <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
+          <a class="med-dark-clr" data-bs-toggle="collapse" href="#exercise-help"
+            aria-expanded="false" aria-controls="exercise-help" aria-label="Exercise Help">
+            <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
+        </h4>
+      </div>
+      <!-- Collapse -->
+      <div class="collapse" id="exercise-help">
+        <div class="card card-body">
+          <h5>The Exercise list:</h5>  
+          <ul>
+            <li><span class="semi-bold"><i class="fa-solid fa-info"></i>&nbsp;:</span>&nbsp; Click to see more information about the exercise.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-edit"></i>&nbsp;:</span>&nbsp; Click to edit the exercise.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-trash"></i>&nbsp;:</span>&nbsp; Click to delete the exercise</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/exercise_list.png' %}" alt="Workout list">
+          <hr>
+          <h5>Fill out the Exercise form like this:</h5>
+          <ul>
+            <li><span class="semi-bold">Name:</span> Give the Exercise a clear name, to separate similar exercises.</li>
+            <li><span class="semi-bold">Unit:</span> If the exercise involves weights, select kg. If not, select -.</li>
+            <li><span class="semi-bold">Muscle Group:</span> Select all the muscle groups the exercise uses.<br>
+              If you can't find the muscle group you need, add one under the Muscle Groups menu.</li>
+            <li><span class="semi-bold">Description:</span> This is your app, write something you might need in the gym
+              when doing this exercise</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/exercise_form.png' %}" alt="Exercise list">
+        </div>
+      </div>
+    </div>
+    <div class="row session-workout content-list row-cols-1">
+      <div class="col col-sm-6 col-md-9 grid-col2">
+        <h4>Workouts</h4>
+      </div>
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
+          <!-- Button trigger collapse -->
+          <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
+          <a class="med-dark-clr" data-bs-toggle="collapse" href="#workout-help"
+            aria-expanded="false" aria-controls="workout-help" aria-label="Workout Info">
+            <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
+        </h4>
+      </div>
+      <!-- Collapse -->
+      <div class="collapse" id="workout-help">
+        <div class="card card-body">
+          <h5>The Workout list:</h5>  
+          <ul>
+            <li><span class="semi-bold"><i class="fa-solid fa-info"></i>&nbsp;:</span>&nbsp; Click to see more information about the workout.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-edit"></i>&nbsp;:</span>&nbsp; Click to edit the workout.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-trash"></i>&nbsp;:</span>&nbsp; Click to delete the workout</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/workout_list.png' %}" alt="Workout list">
+          <hr>
+          <h5>Fill out the Workout form like this:</h5>  
+          <ul>
+            <li><span class="semi-bold">Name:</span> Give the Workout a clear name, to separate similar workouts.</li>
+            <li><span class="semi-bold">Description:</span> This is your app, write something you find useful.</li>
+            <li><span class="semi-bold">Add Exercise:</span> Push the button to add another exercise to the workout.</li>
+            <li><span class="semi-bold">Exercises:</span> Select one exercise from the list.</li>
+            <li><span class="semi-bold">Value:</span> Use this field for the weight if your exercise has kg as a unit.</li>
+            <li><span class="semi-bold">Reps unit:</span> If you count your exercises, select reps. If you do them for, say 1 min, select min.</li>
+            <li><span class="semi-bold">Reps:</span> Enter how many reps you will do (or minutes, if you chose that option)</li>
+            <li><span class="semi-bold">Sets:</span> Enter how many sets you will do</li>
+            <li><span class="semi-bold">Delete:</span> Check this box if you want to delete the exercise from the workout. 
+              When you click Save, the exercise will be removed.<br>
+              If the exercise is left empty you don't need to check the box, it will be deleted anyway.</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/workout_form.png' %}" alt="Workout form">
+        </div>
+      </div>
+    </div>
+    <div class="row session-workout content-list row-cols-1">
+      <div class="col col-sm-6 col-md-9 grid-col2">
+        <h4>Sessions</h4>
+      </div>
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
+          <!-- Button trigger collapse -->
+          <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
+          <a class="med-dark-clr" data-bs-toggle="collapse" href="#session-help"
+            aria-expanded="false" aria-controls="session-help" aria-label="Session Info">
+            <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
+        </h4>
+      </div>
+      <!-- Collapse -->
+      <div class="collapse" id="session-help">
+        <div class="card card-body">
+          <h5>The Calendar:</h5>  
+          <ul>
+            <li><span class="semi-bold">Create New Session:</span> Click to create a new session.</li>
+            <li><span class="semi-bold">Previous:</span> Click to go to the previous month.</li>
+            <li><span class="semi-bold">Next:</span> Click to go to the next month.</li>
+            <li> Click on a session to view it.</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/calendar_head.png' %}" alt="Calendar">
+          <hr>
+          <h5>The Session:</h5>  
+          <ul>
+            <li><span class="semi-bold"><i class="fa-solid fa-edit"></i>&nbsp;:</span>&nbsp; Click to edit the session.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-trash"></i>&nbsp;:</span>&nbsp; Click to delete the session</li>
+            <li> This is the page you use at the gym!</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/session_view.png' %}" alt="Session view">
+          <hr>
+          <h5>Fill out the Session form like this:</h5>  
+          <ul>
+            <li><span class="semi-bold">Name:</span> Give the Session a good name.</li>
+            <li><span class="semi-bold">Date:</span> Pick the date for the session.</li>
+            <li><span class="semi-bold">Workout:</span> Select as many workouts as you like.</li>
+            <li><span class="semi-bold">Exercises:</span> Select one exercise from the list.</li>
+            <li><span class="semi-bold">Comment:</span> Make a comment on the workout.</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/session_form.png' %}" alt="Session form">
+        </div>
+      </div>
+    </div>
+    <div class="row session-workout content-list row-cols-1">
+      <div class="col col-sm-6 col-md-9 grid-col2">
+        <h4>Muscle Groups</h4>
+      </div>
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
+          <!-- Button trigger collapse -->
+          <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
+          <a class="med-dark-clr" data-bs-toggle="collapse" href="#muscle_group-help"
+            aria-expanded="false" aria-controls="muscle_group-help" aria-label="Muscle Group Help">
+            <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
+        </h4>
+      </div>
+      <!-- Collapse -->
+      <div class="collapse" id="muscle_group-help">
+        <div class="card card-body">
+          <h5>The Muscle Group list:</h5>  
+          <ul>
+            <li><span class="semi-bold">Create New Muscle Group:</span> There are lots of provided muscle groups, but you can add your own here</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-edit"></i>&nbsp;:</span>&nbsp; Click to edit the muscle group.</li>
+            <li><span class="semi-bold"><i class="fa-solid fa-trash"></i>&nbsp;:</span>&nbsp; Click to delete the muscle group.</li>
+          </ul>
+          <img class="help-image mt-2" src="{% static 'images/muscle_group_list.png' %}" alt="Workout list">
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="jumbotron-head justify-content-center text-center mt-3">
+      <h1>This is how you use ITrain</h1>
+      <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
+        <div class="row session-workout content-list row-cols-1 pt-3 pb-2">
+          <h4>You have to be logged in to see this page</h4>
+          <p>Log in <a href="{% url 'login' %}" aria-label="Log in Here">here</a>!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

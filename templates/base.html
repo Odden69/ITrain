@@ -58,7 +58,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% if 'help' in request.path %} active {% endif %}"
-                                href="#" aria-label="Go to Workouts">Help</a>
+                                href="{% url 'help' %}" aria-label="Go to Help">Help</a>
                         </li>
                         {% endif %}
                         <li class="nav-item">

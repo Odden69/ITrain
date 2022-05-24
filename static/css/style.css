@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Montserrat:wght@400;500;700&display=swap');
 
 /* General */
 body {
@@ -39,6 +39,10 @@ body {
 
 .med-light-clr {
   color: #A87556;
+}
+
+.semi-bold {
+  font-weight: 500;
 }
 
 a {
@@ -318,6 +322,13 @@ textarea {
 .about-image {
   width: auto;
   max-height: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+.help-image {
+  width: auto;
+  max-width: 75%;
   display: block;
   margin: 0 auto;
 }

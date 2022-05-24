@@ -50,8 +50,8 @@ class CollectionForm(forms.ModelForm):
         model = Collection
         fields = ['exercise',
                   'value',
-                  'reps',
                   'reps_unit',
+                  'reps',
                   'sets'
                   ]
         widgets = {'exercise': forms.Select(attrs={
@@ -59,7 +59,7 @@ class CollectionForm(forms.ModelForm):
                    }),
                    'value': forms.NumberInput(attrs={
                        'placeholder': 'If the exercise has a unit, like kg,\
- then enter a value.'
+then enter a value.',
                    }),
                    'reps': forms.NumberInput(attrs={
                        'placeholder': 'Enter number of reps'
