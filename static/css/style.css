@@ -157,7 +157,8 @@ footer {
   background-color: #12110D;
   color: white;
   height: 72vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .content-list-container {
