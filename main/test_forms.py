@@ -85,21 +85,5 @@ class TestCollectionForm(TestCase):
             'formset-1-reps_unit': rep_unit.id,
             'formset-1-sets': '10'
         })
-        # formset = instantiate_formset(CollectionForm, [
-        #     {
-        #         'exercise': 'test exercise',
-        #         'value': 10,
-        #         'reps': 5,
-        #         'reps_unit': 'reps',
-        #         'sets': 10
-        #     },
-        #     {
-        #         'exercise': 'test exercise',
-        #         'value': 10,
-        #         'reps': 5,
-        #         'reps_unit': 'reps',
-        #         'sets': 10
-        #     },
-        # ])
         print(formset)
         self.assertTrue(formset.is_valid())

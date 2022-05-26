@@ -156,7 +156,7 @@ footer {
   font-size: 15px;
 }
 
-/* */
+/* Common content */
 .jumbotron {
   background-color: #12110D;
   color: white;
@@ -230,9 +230,7 @@ li {
   margin: 0;
   padding: 0;
 }
-
-
-/*   */
+/* end of calendar */
 
 .clearfix {
   margin: 15px 5px;

@@ -74,9 +74,9 @@ class BaseCollectionFormSet(forms.BaseModelFormSet):
     """
     To filter Exercises in the formsets depending on the user
     """
-    def __init__(self, user, *args, **kvargs):
+    def __init__(self, user, *args, **kwargs):
         self.user = user
-        super().__init__(*args, **kvargs)
+        super().__init__(*args, **kwargs)
         filter = [self.user.username, "itrainadmin"]
         queryset = Exercise.objects.filter(created_by__username__in=filter)
         self.fields['exercise'].queryset = queryset

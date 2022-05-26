@@ -6,7 +6,6 @@ This module is copied in its whole from
 https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html
 with only a few modifications to fit the ITrain app
 """
-# from datetime import datetime, timedelta
 from calendar import HTMLCalendar
 from .models import Session
 

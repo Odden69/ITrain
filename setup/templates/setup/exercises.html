@@ -24,7 +24,6 @@
             aria-expanded="false" aria-controls="collapseExercise{{ exercise.id }}" aria-label="Exercise Info">
             <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
           {% if user.username == exercise.created_by.username %}
-          <!-- <td>{{ exercise.unit }}</td> -->
           <a class="med-dark-clr" href="{% url 'edit_exercise' exercise.id %}" aria-label="Edit Exercise">
             <i class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;
           <!-- Button trigger modal -->
