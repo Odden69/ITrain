@@ -224,6 +224,10 @@ All the links on the site have been tested, as well as the function of the forms
 These tests include testing of the CRUD functionality and the use of confirmation messages.
 These tests are documented in the [Test Document](documentation/testing_itrain.xlsx) as well.
 
+### Color Contrast Check
+The color contrast was checked on [Contrast Grid](https://contrast-grid.eightshapes.com/?version=1.1.0&background-colors=&foreground-colors=%23FFFFFF%2C%20White%0D%0A%23000%2C%20black%0D%0A%2312110D%0D%0A%23A87556%0D%0A%23C7C7BC%0D%0A%236F310A%0D%0A&es-color-form__tile-size=compact&es-color-form__show-contrast=aaa&es-color-form__show-contrast=aa&es-color-form__show-contrast=aa18&es-color-form__show-contrast=dnp).  
+![Color Contrast Check](documentation/contrast_check.png)
+
 ### Known Bugs
 - The major bug left, that I've not been able to solve, is the requirement of an existing exercise in a workout. It is now possible to save a workout without any exercises at all and this was not the intended functionality.
 
@@ -280,6 +284,7 @@ Good luck!
 ### Other
 - The background image came from [pxhere](https://pxhere.com/sv/photo/1283826?utm_content=shareClip&utm_medium=referral&utm_source=pxhere), as well as the images on the about page.
 - The Logo came from [focusfitness](https://www.focusfitness.net/stock-photos/downloads/fit-woman-chatting-phone-exercising-treadmill/).
+- The colour scheme was extracted from the background image and some complementary colour were added on [coolors](https://coolors.co/).
 
 ## Acknowledgements
 - First of all my mentor Narender Singh deserves a big thank you for mental support and cheering, and also for some hands on technical advice, when I got stuck.
