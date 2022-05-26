@@ -160,13 +160,13 @@ There are a couple of exercises included in the app. On this page they are visib
 By clicking the *Add Exercise* button the user access a form to create a new Exercise.  
 ![The Exercises Page](documentation/features/exercises.png)
 
-Muscle Groups
+Muscle Groups  
 There are a lot of muscle groups included in the app. On this page they are visible, together with the ones the user created. From the list, the muscle groups created by the user, can be edited in a separate form or deleted.  
 By clicking the *Add Muscle Group* button the user access a form to create a new Muscle Group.  
 ![The Muscle Groups Page](documentation/features/muscle_groups.png)
 
-The Help Page
-On the help page a user can find out how to use the ITrain app. Each category is clickable to easily find the more information the user is searching for.  
+The Help Page  
+On the help page a user can find out how to use the ITrain app. Each category is clickable to easily find the information the user is searching for.  
 ![The Help Page](documentation/features/help.png)
 </details>
 
@@ -175,7 +175,7 @@ On the help page a user can find out how to use the ITrain app. Each category is
 ### Features Left to Implement
 There are quite a few features on my wishing list for this site. Apart from some user interface improvements, like pagination of lists and an up to top button on scrolling pages, there are lots of improvements to make.
 - I would like the calendar to be clickable on a date to create a session instead of using a separate button.
-- I would like to add tags to exercises and workouts and also add dynamic filters to the forms and list views for easier searches when the user can filter on tags and muscle groups.
+- I would like to add tags to exercises and workouts and also add dynamic filters to the forms and list views, for easier searches when the user can filter on tags and muscle groups.
 - There should be a user account page where password and usernames could be changed.
 - I would like to add a checkbox where a workout and an exercise can be disabled and not visible in the forms, but saved for future use.
 - I would like a copy function to create a session similar to an old one.
@@ -210,7 +210,7 @@ But even if the automated testing was not completed, the work I put into it was 
 All user stories in the list [above](#user-stories) has been tested and confirmed after implementation, apart from the ones marked with an asterisk, which will be implemented at a later stage.
 
 ### Validation and Responsivity
-The validation of the code was made on these sites:
+The validations of the code were made on these sites:
 - Python : [pep8online](http://pep8online.com/checkresult)
 - CSS : [jigsaw W3C](https://jigsaw.w3.org/css-validator/validator)
 - HTML : [WS HTML Validator](https://validator.w3.org/)
