@@ -12,9 +12,6 @@
   <div class="jumbotron-head justify-content-center text-center mt-3">
     {% if session.id == None %}
     <h2 class="pt-2">Create Session</h2>
-    {% else %}
-    <h2 class="pt-2">Edit {{ session.name }}</h2>
-    {% endif %}
     <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
       <div class="clearfix text-center">
         <a href="{% url 'home' %}">
@@ -22,32 +19,42 @@
         </a>
       </div>
       <div class="row session-workout content-list row-cols-1">
-
-        {% if form.errors %}
-        {% for field in form %}
-        {% for error in field.errors %}
-        <div class="alert alert-danger">
-          {{ field.label }} <strong>{{ error|escape }}</strong>
-        </div>
-        {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-          {{ field.label }} <strong>{{ error|escape }}</strong>
-        </div>
-        {% endfor %}
-        {% endif %}
-
-        <form method="post">
-          {% csrf_token %}
-          {{ form | crispy }}
-          <div class="text-center pt-3 pb-3">
-            <input type="submit" class="btn" value="Save Session" aria-label="Save Session">
+        {% else %}
+        <h2 class="pt-2">Edit {{ session.name }}</h2>
+        <div class="container-md content-list-container ps-sm-4 pe-sm-4 dark-clr text-start">
+          <div class="clearfix text-center">
+            <a href="{% url 'session' session.id %}">
+              <button class="btn float-sm-start ms-2 mb-2" aria-label="Cancel">Cancel</button>
+            </a>
           </div>
-        </form>
+          <div class="row session-workout content-list row-cols-1">
+            {% endif %}
+
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+              {{ field.label }} <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ field.label }} <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form method="post">
+              {% csrf_token %}
+              {{ form | crispy }}
+              <div class="text-center pt-3 pb-3">
+                <input type="submit" class="btn" value="Save Session" aria-label="Save Session">
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-{% endblock %}
+    {% endblock %}
