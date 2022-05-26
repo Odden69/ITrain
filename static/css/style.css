@@ -136,6 +136,7 @@ hr {
 
 .icon {
   height: 35px;
+  width: 35px
 }
 
 /* Footer */
@@ -146,10 +147,13 @@ footer {
 
 .social-links a {
   font-size: 23px;
+
+}.social-links i:hover {
+  color: #A87556;
 }
 
 .copyright {
-  font-size: small;
+  font-size: 15px;
 }
 
 /* */
@@ -350,6 +354,10 @@ textarea {
     background: #12110D;
   }
 
+  .jumbotron {
+    height: 80vh;
+  }
+
   .session-comment {
     width: 250px;
   }
@@ -371,6 +379,11 @@ textarea {
 
 /* For screen width < 475px */
 @media screen and (max-width: 475px) {
+
+  .about-jumbo,
+  .about-jumbo .container-md {
+    padding: 0;
+  }
 
   th.mon,
   th.tue,

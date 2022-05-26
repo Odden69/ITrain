@@ -10,16 +10,17 @@
 	</div>
 	<div class="container-md content-list-container mt-3 mb-3 gy-4 dark-clr">
 		<div class="clearfix text-center">
-			<div class="d-block d-md-inline p-md-2 pb-4">
+			<div class="d-block d-sm-inline p-sm-2 pb-4">
 				<a class="btn" href="{% url 'create_session' %}" aria-label="Create Session"> Create New Session </a>
 			</div>
 			<!-- <br class="d-lg-none"> -->
-			<div class="d-block d-md-inline pb-3 pb-sm-0">
-				<a class="btn float-sm-start mb-1 mb-sm-0" href="{% url 'home' %}?{{ prev_month }}" aria-label="Previous Month"> Prev<span
-						class="d-none d-md-inline">ious</span> Month </a>
+			<div class="d-block d-sm-inline">
+				<a class="btn float-start mb-0" href="{% url 'home' %}?{{ prev_month }}" aria-label="Previous Month"> Prev<span
+						class="d-none d-md-inline">ious Month</span></a>
 			</div>
-			<div class="d-block d-md-inline">
-				<a class="btn float-sm-end mb-1 mb-sm-0" href="{% url 'home' %}?{{ next_month }}" aria-label="Next Month"> Next Month </a>
+			<div class="d-block d-sm-inline">
+				<a class="btn float-end mb-0" href="{% url 'home' %}?{{ next_month }}" aria-label="Next Month"> Next<span
+					class="d-none d-md-inline">Month</span></a>
 			</div>
 		</div>
 		<div class="row content-list row-cols-1">

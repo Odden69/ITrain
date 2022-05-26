@@ -15,11 +15,11 @@
   <div class="container-md content-list-container p-sm-4 mt-3 gy-4 dark-clr">
     <div class="row session-workout content-list row-cols-1">
       {% for muscle_group in musclegroup_list %}
-      <div class="col-9 grid-col2">
+      <div class="col col-sm-6 col-md-9 grid-col2">
         <h4>{{ muscle_group.name }}</h4>
       </div>
-      <div class="col-3 grid-col2">
-        <h4 class="end">
+      <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
+        <h4 class="float-start float-sm-end">
           {% if user.username == muscle_group.created_by.username %}
           <a class="med-dark-clr" href="{% url 'edit_muscle_group' muscle_group.id %}" aria-label="Edit Muscle Group">
             <i class="fa-solid fa-edit"></i></a>&nbsp;&nbsp;

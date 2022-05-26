@@ -22,8 +22,8 @@ https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-
                     {{ workout_form | crispy }}
                     {{ formset.management_form }}
                     <div class="clearfix pt-1 text-center">
-                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 add_more" value="Add Exercise" aria-label="Add Exercise">
-                        <input type="submit" class="btn float-sm-end" value="Save Workout" aria-label="Save Workout">
+                        <input type="button" class="btn float-sm-start mb-3 mb-sm-0 mx-2 mx-sm-0 add_more" value="Add Exercise" aria-label="Add Exercise">
+                        <input type="submit" class="btn float-sm-end mb-3 mb-sm-0 mx-2 mx-sm-0" value="Save Workout" aria-label="Save Workout">
                     </div>
                     <div id="form_set">
                         {% for form in formset.forms %}
