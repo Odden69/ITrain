@@ -139,6 +139,20 @@ hr {
   width: 35px
 }
 
+/* .navbar-text a {
+  color: rgba(255,255,255,.55);
+} */
+
+#nav-login,
+#nav-logout {
+  color: rgba(255,255,255,.55);
+}
+
+#nav-login:hover,
+#nav-logout:hover {
+  color: rgba(255,255,255,.75);
+}
+
 /* Footer */
 footer {
   background-color: #12110D;

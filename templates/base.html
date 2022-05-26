@@ -68,12 +68,12 @@
                     </ul>
                     {% if user.is_authenticated %}
                     <span class="navbar-text">
-                        Logged in as {{ user.username }}&nbsp;|&nbsp;<a href="{% url 'logout' %}"
+                        Logged in as {{ user.username }}&nbsp;|&nbsp;<a id="nav-login" href="{% url 'logout' %}"
                             aria-label="Go to Log out">Log out</a>
                     </span>
                     {% else %}
                     <span class="navbar-text">
-                        <a href="{% url 'login' %}" aria-label="Go to Sign up">Log in / Sign up</a>
+                        <a id="nav-logout" href="{% url 'login' %}" aria-label="Go to Sign up">Log in / Sign up</a>
                     </span>
                     {% endif %}
                 </div>
