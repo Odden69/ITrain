@@ -18,13 +18,11 @@
       </div>
       <div class="col col-sm-6 col-md-3 grid-col2 list-icons">
         <h4 class="float-start float-sm-end">
-          {% if exercise.description != '' or exercise.muscle_group.name is not None or exercise.unit.name != '-' %}
           <!-- Button trigger collapse -->
           <!-- Collapse code was copied from https://getbootstrap.com/docs/5.0/components/collapse/ -->
           <a class="med-dark-clr" data-bs-toggle="collapse" href="#collapseExercise{{ exercise.id }}"
             aria-expanded="false" aria-controls="collapseExercise{{ exercise.id }}" aria-label="Exercise Info">
             <i class="fa-solid fa-info"></i></a>&nbsp;&nbsp;
-          {% endif %}
           {% if user.username == exercise.created_by.username %}
           <!-- <td>{{ exercise.unit }}</td> -->
           <a class="med-dark-clr" href="{% url 'edit_exercise' exercise.id %}" aria-label="Edit Exercise">
@@ -46,17 +44,17 @@
           <p>Unit: {{ exercise.unit.name }}</p>
           <hr>
           {% endif %}
-          {% if exercise.muscle_group.name is None %}
-          {% else %}
           <span>Muscle groups:</span>
           <ul>
             {% for muscle_group in exercise.muscle_group.all %}
             <li>{{ muscle_group.name }}</li>
             {% endfor %}
           </ul>
+          {% if exercise.description == '' %}
+          {% else %}
           <hr>
-          {% endif %}
           {{ exercise.description }}
+          {% endif %}
         </div>
       </div>
 
